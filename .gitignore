@@ -1,0 +1,11 @@
+# Obsidian: estado local del vault
+docs/.obsidian/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Node / Angular (cuando existan)
+node_modules/
+dist/
+.angular/
