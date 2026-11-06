@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"phase5","type":"text","text":"# Fase 5 — Alumnos, instrumentos y matriculas\n\nEstado: Pendiente","x":-120,"y":0,"width":420,"height":140},
+		{"id":"accept5","type":"text","text":"## Criterio de aceptacion\nen una mancomunidad con el modulo activo, un alumno se crea con dos instrumentos, se matricula en dos asignaturas y su ficha muestra todo.","x":460,"y":0,"width":420,"height":180},
+		{"id":"bullets5","type":"text","text":"## Contenido\n- CRUD de alumnos y tutores.\n- Catalogo de instrumentos con sugerencias, creacion, renombrado, fusion y desactivacion, visible solo si el modulo esta activo.\n- Calculo de modulos.instrumentos a partir de las asignaturas activas y rechazo con 422 cuando este inactivo.\n- Matriculacion y baja con historico por curso; la baja excluye de listas futuras sin borrar asistencias y la reactivacion reincorpora.\n- Ficha del alumno con asignaturas e instrumentos condicionales.\n- Filtros por centro, instrumento y estado.\n- Tests de normalizacion, limites, matriculas duplicadas, baja/reactivacion y modulo inactivo.","x":-120,"y":180,"width":420,"height":479},
+		{"id":"sub5_1","type":"text","text":"### 5.1\n\nAlumnos y tutores: CRUD, busqueda y filtros por centro y estado.\n\n**Criterio:** Un alumno se crea con sus tutores y se edita despues desde su ficha.","x":460,"y":220,"width":420,"height":201},
+		{"id":"sub5_2","type":"text","text":"### 5.2\n\nCatalogo de instrumentos: sugerencias, creacion, renombrado, fusion y desactivacion, solo con el modulo activo.\n\n**Criterio:** Fusionar dos instrumentos mueve sus asociaciones y no deja duplicados; con el modulo inactivo, la API responde 422 y no borra datos.","x":460,"y":460,"width":420,"height":240},
+		{"id":"sub5_3","type":"text","text":"### 5.3\n\nMatriculas y ficha: alta, baja, reactivacion, historico por curso y vista con asignaturas e instrumentos condicionales.\n\n**Criterio:** Un alumno con dos instrumentos y dos matriculas muestra todo en su ficha; al darlo de baja sale de las listas futuras sin perder su asistencia y al reactivarlo vuelve; sin modulo activo, la seccion de instrumentos no aparece.","x":460,"y":740,"width":420,"height":300}
+	],
+	"edges":[
+		{"id":"e_title_bullets5","fromNode":"phase5","fromSide":"bottom","toNode":"bullets5","toSide":"top"},
+		{"id":"e_title_accept5","fromNode":"phase5","fromSide":"right","toNode":"accept5","toSide":"left"},
+		{"id":"27900c658e1b01ef","fromNode":"sub5_1","fromSide":"bottom","toNode":"sub5_2","toSide":"top"},
+		{"id":"6adafd149cb550c7","fromNode":"sub5_2","fromSide":"bottom","toNode":"sub5_3","toSide":"top"},
+		{"id":"9ad4e466856d8e4b","fromNode":"bullets5","fromSide":"right","toNode":"sub5_1","toSide":"left"},
+		{"id":"7ccbe556e82438c3","fromNode":"bullets5","fromSide":"right","toNode":"sub5_2","toSide":"left"},
+		{"id":"e498fd55dbd13181","fromNode":"bullets5","fromSide":"right","toNode":"sub5_3","toSide":"left"}
+	]
+}

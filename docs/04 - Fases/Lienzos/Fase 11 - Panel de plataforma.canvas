@@ -1,0 +1,22 @@
+{
+	"nodes":[
+		{"id":"phase11","type":"text","text":"# Fase 11 — Panel de plataforma\n\nEstado: Pendiente","x":-80,"y":0,"width":420,"height":140},
+		{"id":"accept11","type":"text","text":"## Criterio de aceptacion\nun SUPERADMIN se crea por el comando de bootstrap, crea una mancomunidad nueva, comprueba que su administrador puede entrar en ella y la suspende sin afectar a las demas; ademas, desde el soporte resuelve una cuenta bloqueada sin acceder a sus datos academicos.","x":500,"y":0,"width":420,"height":240},
+		{"id":"bullets11","type":"text","text":"## Contenido\n- Rol SUPERADMIN y acceso separado del panel.\n- Listado de mancomunidades con estado, tipo y metricas bajo demanda (centros, usuarios y alumnos activos).\n- Alta de mancomunidad con tipo, primer administrador y curso inicial en una transaccion.\n- Edicion de nombre, tipo y duracion maxima de franja con motivo y auditoria; el codigo no se modifica.\n- Suspension y reactivacion con bloqueo de login y refresh.\n- Soporte de cuentas: busqueda global, reset con cambio obligatorio, activacion o desactivacion y cambio de rol, con motivo.\n- Cambio de email iniciado por soporte con motivo y doble confirmacion; el soporte no puede confirmar la direccion.\n- Bootstrap del primer SUPERADMIN por comando auditado, sin credencial sembrada y sin endpoint HTTP.\n- Auditoria de altas, ediciones, suspensiones, reactivaciones y acciones de soporte.\n- Tests de que un administrador de mancomunidad no accede al panel y de que el panel no lee datos academicos.","x":-80,"y":180,"width":420,"height":756},
+		{"id":"sub11_1","type":"text","text":"### 11.1\n\nRol SUPERADMIN, acceso separado, alta con tipo, primer administrador y curso inicial, suspension y reactivacion.\n\n**Criterio:** Un SUPERADMIN crea una mancomunidad, su administrador entra y la suspension bloquea login y refresh solo en ella.","x":500,"y":280,"width":420,"height":240},
+		{"id":"sub11_2","type":"text","text":"### 11.2\n\nMetricas bajo demanda, edicion de tipo y duracion maxima con motivo, y auditoria de altas, cambios, suspensiones y reactivaciones.\n\n**Criterio:** El panel muestra centros, usuarios y alumnos activos sin leer datos academicos y cada accion queda auditada.","x":500,"y":560,"width":420,"height":240},
+		{"id":"sub11_3","type":"text","text":"### 11.3\n\nSoporte de cuentas de cualquier mancomunidad: busqueda, reset, activacion, desactivacion y cambio de rol, con motivo y auditoria.\n\n**Criterio:** El SUPERADMIN resuelve una cuenta bloqueada de un administrador sin ver ni tocar sus datos academicos.","x":500,"y":840,"width":420,"height":246},
+		{"id":"sub11_4","type":"text","text":"### 11.4\n\nComando --bootstrap-superadmin, cambio de email iniciado por soporte y auditoria ALTA_SUPERADMIN.\n\n**Criterio:** El primer superadministrador se crea sin contrasena sembrada, el comando es idempotente y el cambio de email no se aplica hasta confirmar la direccion nueva.","x":500,"y":1120,"width":420,"height":280}
+	],
+	"edges":[
+		{"id":"e_title_bullets11","fromNode":"phase11","fromSide":"bottom","toNode":"bullets11","toSide":"top"},
+		{"id":"e_title_accept11","fromNode":"phase11","fromSide":"right","toNode":"accept11","toSide":"left"},
+		{"id":"faa8de9cc4846f9d","fromNode":"bullets11","fromSide":"right","toNode":"sub11_1","toSide":"left"},
+		{"id":"0627a106277cb2a1","fromNode":"bullets11","fromSide":"right","toNode":"sub11_2","toSide":"left"},
+		{"id":"0ab8262f3a844959","fromNode":"bullets11","fromSide":"right","toNode":"sub11_3","toSide":"left"},
+		{"id":"c03a8fe022119be3","fromNode":"bullets11","fromSide":"right","toNode":"sub11_4","toSide":"left"},
+		{"id":"a659e40c7c8f928b","fromNode":"sub11_1","fromSide":"bottom","toNode":"sub11_2","toSide":"top"},
+		{"id":"8727f26ca24bb521","fromNode":"sub11_2","fromSide":"bottom","toNode":"sub11_3","toSide":"top"},
+		{"id":"3669209ca58f68a3","fromNode":"sub11_3","fromSide":"bottom","toNode":"sub11_4","toSide":"top"}
+	]
+}

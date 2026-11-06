@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"phase10","type":"text","text":"# Fase 10 — Calidad, pruebas y despliegue\n\nEstado: Pendiente","x":-80,"y":0,"width":420,"height":140},
+		{"id":"bullets10","type":"text","text":"## Contenido\n- Revision de seguridad y validaciones.\n- Tests de integracion con Testcontainers.\n- Accesibilidad y responsive.\n- OpenAPI y README definitivos.\n- Dockerfiles, Compose de produccion, copia diaria cifrada con retencion y prueba de restauracion trimestral.\n- Proceso programado de purga por retencion (matricula + 2 anos), por mancomunidad, con purga_at/purgada_at y contadores anonimizados en resumen_asistencia.\n- Revision de rendimiento (indices con EXPLAIN), concurrencia (version/409) y dependencias.","x":-80,"y":180,"width":420,"height":440},
+		{"id":"accept10","type":"text","text":"## Criterio de aceptacion\nla aplicacion se levanta desde cero con Docker Compose, pasa los tests y la documentacion esta al dia.","x":500,"y":0,"width":420,"height":140},
+		{"id":"sub10_1","type":"text","text":"### 10.1\n\nRevision de seguridad y validaciones, tests de integracion con Testcontainers y cobertura de permisos y aislamiento.\n\n**Criterio:** La suite completa pasa en verde y cada flujo critico se prueba con dos mancomunidades.","x":500,"y":180,"width":420,"height":220},
+		{"id":"sub10_2","type":"text","text":"### 10.2\n\nDockerfiles, Compose de produccion, copia diaria cifrada (30 dias + 12 mensuales), restauracion trimestral, script de exportacion por mancomunidad y proceso de purga por retencion.\n\n**Criterio:** El entorno se levanta desde cero con Docker Compose, una copia se restaura en staging y la purga deja solo contadores agregados.","x":500,"y":440,"width":420,"height":320},
+		{"id":"sub10_3","type":"text","text":"### 10.3\n\nOpenAPI, README definitivo, accesibilidad, responsive y revision de dependencias.\n\n**Criterio:** La documentacion esta al dia y la aplicacion se usa con teclado y en movil y escritorio.","x":500,"y":800,"width":420,"height":220}
+	],
+	"edges":[
+		{"id":"e_title_bullets10","fromNode":"phase10","fromSide":"bottom","toNode":"bullets10","toSide":"top"},
+		{"id":"e_title_accept10","fromNode":"phase10","fromSide":"right","toNode":"accept10","toSide":"left"},
+		{"id":"2b76b16ecf85e73b","fromNode":"bullets10","fromSide":"right","toNode":"sub10_1","toSide":"left"},
+		{"id":"5de1e8d2aa83d970","fromNode":"bullets10","fromSide":"right","toNode":"sub10_2","toSide":"left"},
+		{"id":"50e536a21c0d12f9","fromNode":"bullets10","fromSide":"right","toNode":"sub10_3","toSide":"left"},
+		{"id":"50cc4c491c664316","fromNode":"sub10_1","fromSide":"bottom","toNode":"sub10_2","toSide":"top"},
+		{"id":"8bac291451b83195","fromNode":"sub10_2","fromSide":"bottom","toNode":"sub10_3","toSide":"top"}
+	]
+}

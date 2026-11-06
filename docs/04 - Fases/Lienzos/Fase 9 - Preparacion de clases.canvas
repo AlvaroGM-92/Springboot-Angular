@@ -1,0 +1,13 @@
+{
+	"nodes":[
+		{"id":"phase9","type":"text","text":"# Fase 9 — Preparacion de clases\n\nEstado: Pendiente","x":-40,"y":0,"width":420,"height":140},
+		{"id":"accept9","type":"text","text":"## Criterio de aceptacion\nel profesor planifica una clase futura y la administracion la consulta sin poder editarla.","x":460,"y":0,"width":420,"height":120},
+		{"id":"bullets9","type":"text","text":"## Contenido\n- CRUD de preparaciones con estados.\n- Vinculo opcional con sesion.\n- Filtros por asignatura, estado y fechas.\n- Consulta administrativa en solo lectura, incluidos borradores.\n- Tests de borrado solo en borrador y aislamiento.","x":-40,"y":180,"width":420,"height":260},
+		{"id":"nosub9","type":"text","text":"Sin sub-fases (fase unica).","x":460,"y":160,"width":420,"height":60}
+	],
+	"edges":[
+		{"id":"e_title_bullets9","fromNode":"phase9","fromSide":"bottom","toNode":"bullets9","toSide":"top"},
+		{"id":"e_title_accept9","fromNode":"phase9","fromSide":"right","toNode":"accept9","toSide":"left"},
+		{"id":"e_nosub9","fromNode":"bullets9","fromSide":"right","toNode":"nosub9","toSide":"left"}
+	]
+}

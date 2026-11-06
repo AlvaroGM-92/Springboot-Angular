@@ -1,0 +1,13 @@
+{
+	"nodes":[
+		{"id":"phase4","type":"text","text":"# Fase 4 — Asignaturas y profesorado\n\nEstado: Pendiente","x":0,"y":0,"width":420,"height":140},
+		{"id":"accept4","type":"text","text":"## Criterio de aceptacion\nuna asignatura se crea, se asigna a un profesor y aparece en su panel.","x":500,"y":0,"width":420,"height":120},
+		{"id":"nosub4","type":"text","text":"Sin sub-fases (fase unica).","x":500,"y":160,"width":420,"height":60},
+		{"id":"bullets4","type":"text","text":"## Contenido\n- CRUD de asignaturas con centro, curso, grupo, tipo y uso de instrumento.\n- Asignacion y retirada de profesores.\n- Tipo de asignatura de la lista cerrada, independiente del tipo de la mancomunidad.\n- Regla requiereInstrumento solo para asignaturas de musica.\n- Filtros por centro, profesor, tipo y estado.\n- Vista de mis asignaturas para el profesor.\n- Sustituciones por asignatura y periodo: alta administrativa, validacion de disponibilidad y reasignacion de sesiones PROGRAMADA sin lista.\n- Tests de duplicados, tipos, regla de instrumento, sustituciones solapadas y de desactivacion con matriculas.","x":0,"y":180,"width":420,"height":480}
+	],
+	"edges":[
+		{"id":"e_title_bullets4","fromNode":"phase4","fromSide":"bottom","toNode":"bullets4","toSide":"top"},
+		{"id":"e_title_accept4","fromNode":"phase4","fromSide":"right","toNode":"accept4","toSide":"left"},
+		{"id":"e_nosub4","fromNode":"bullets4","fromSide":"right","toNode":"nosub4","toSide":"bottom"}
+	]
+}

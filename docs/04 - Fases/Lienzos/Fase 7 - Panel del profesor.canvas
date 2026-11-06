@@ -1,0 +1,13 @@
+{
+	"nodes":[
+		{"id":"phase7","type":"text","text":"# Fase 7 — Panel del profesor\n\nEstado: Pendiente","x":0,"y":0,"width":420,"height":100},
+		{"id":"accept7","type":"text","text":"## Criterio de aceptacion\nun profesor ve solo su actividad y llega a un alumno en dos clics.","x":500,"y":0,"width":420,"height":120},
+		{"id":"nosub7","type":"text","text":"Sin sub-fases (fase unica).","x":500,"y":160,"width":420,"height":60},
+		{"id":"bullets7","type":"text","text":"## Contenido\n- Dashboard con resumen de asignaturas, alumnos y franjas.\n- Mi horario en rejilla y mis asignaturas.\n- Rejilla de solo lectura de los grupos donde imparte.\n- Mis alumnos con busqueda y filtros.\n- Navegacion desde el horario a la asignatura y al alumno.\n- Tests de aislamiento entre profesores.","x":0,"y":140,"width":420,"height":320}
+	],
+	"edges":[
+		{"id":"e_title_bullets7","fromNode":"phase7","fromSide":"bottom","toNode":"bullets7","toSide":"top"},
+		{"id":"e_title_accept7","fromNode":"phase7","fromSide":"right","toNode":"accept7","toSide":"left"},
+		{"id":"e_nosub7","fromNode":"bullets7","fromSide":"right","toNode":"nosub7","toSide":"left"}
+	]
+}

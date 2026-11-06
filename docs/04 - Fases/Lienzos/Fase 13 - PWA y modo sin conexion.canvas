@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"phase13","type":"text","text":"# Fase 13 — PWA y modo sin conexion\n\nEstado: Pendiente (posterior a la v1)","x":-80,"y":0,"width":420,"height":140},
+		{"id":"accept13","type":"text","text":"## Criterio de aceptacion\ncon el movil en modo avion, el profesor abre la app instalada, ficha la entrada y ve el aviso de pendiente; al recuperar cobertura el fichaje sube una sola vez y aparece en el panel con su origen.","x":500,"y":0,"width":420,"height":180},
+		{"id":"bullets13","type":"text","text":"## Contenido\n- Instalacion desde enlace en Android e iOS, sin tiendas.\n- Cacheado de la aplicacion y actualizacion automatica al abrir.\n- Cola local de fichajes en IndexedDB con idempotencia por UUID.\n- Sincronizacion al recuperar cobertura y marca visible de pendiente.\n- Pruebas en dispositivos reales, incluida la instalacion desde Safari.","x":-80,"y":180,"width":420,"height":341},
+		{"id":"sub13_1","type":"text","text":"### 13.1\n\nManifiesto, service worker, instalacion desde enlace y actualizacion al abrir.\n\n**Criterio:** La app se instala en Android y desde Safari en iOS, y al abrir toma la version nueva.","x":500,"y":220,"width":420,"height":200},
+		{"id":"sub13_2","type":"text","text":"### 13.2\n\nCola offline en IndexedDB con idempotencia por UUID y sincronizacion al recuperar cobertura.\n\n**Criterio:** En modo avion se ficha, queda marcado como pendiente y al volver la conexion sube una sola vez.","x":500,"y":460,"width":420,"height":220},
+		{"id":"sub13_3","type":"text","text":"### 13.3\n\nPruebas en dispositivos reales y visualizacion del origen del fichaje en el panel.\n\n**Criterio:** El ciclo completo en un movil real no genera duplicados y el panel distingue los fichajes offline.","x":500,"y":720,"width":420,"height":220}
+	],
+	"edges":[
+		{"id":"e_title_bullets13","fromNode":"phase13","fromSide":"bottom","toNode":"bullets13","toSide":"top"},
+		{"id":"e_title_accept13","fromNode":"phase13","fromSide":"right","toNode":"accept13","toSide":"left"},
+		{"id":"abcdd5d6ff806c8c","fromNode":"bullets13","fromSide":"right","toNode":"sub13_1","toSide":"left"},
+		{"id":"788ae04ccb617b1b","fromNode":"bullets13","fromSide":"right","toNode":"sub13_2","toSide":"left"},
+		{"id":"bbeca6f7221060ba","fromNode":"bullets13","fromSide":"right","toNode":"sub13_3","toSide":"left"},
+		{"id":"1bd523cc62d21ff6","fromNode":"sub13_1","fromSide":"bottom","toNode":"sub13_2","toSide":"top"},
+		{"id":"7417f0cdc47de94a","fromNode":"sub13_2","fromSide":"bottom","toNode":"sub13_3","toSide":"top"}
+	]
+}

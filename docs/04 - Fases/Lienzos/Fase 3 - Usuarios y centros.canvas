@@ -1,0 +1,25 @@
+{
+	"nodes":[
+		{"id":"phase3","type":"text","text":"# Fase 3 — Usuarios y centros\n\nEstado: Pendiente","x":-80,"y":0,"width":420,"height":100},
+		{"id":"bullets3","type":"text","text":"## Contenido\n- CRUD de usuarios con busqueda, filtros y activacion de la pertenencia.\n- Asignacion de rol por mancomunidad y proteccion del ultimo administrador.\n- Reset de contrasena por administrador.\n- Recuperacion autoservicio desde el login con enlace de un solo uso y correo transaccional (Mailpit en desarrollo).\n- Verificacion de email al alta y cambio de direccion con doble confirmacion; recuperacion solo sobre email verificado.\n- Idempotency-Key en las altas y acciones sensibles.\n- CRUD de centros y reglas de desactivacion, con nombre unico por mancomunidad.\n- Gestion de cursos escolares: crear, activar y cerrar con preflight, con un unico activo por mancomunidad.\n- Reapertura excepcional de un curso cerrado con motivo, cerrando el curso activo en la misma transaccion.\n- Tabla reutilizable, paginacion y dialogos de confirmacion.\n- Tests de email unico global, ultimo admin, dependencias, cierre/reapertura y aislamiento entre mancomunidades.","x":-80,"y":140,"width":420,"height":736},
+		{"id":"accept3","type":"text","text":"## Criterio de aceptacion\nla administracion puede dar de alta un centro y un profesor en su mancomunidad, editarlos y desactivarlos sin tocar la base de datos, sin ver datos de otra mancomunidad; ademas, un usuario recupera su contrasena por correo solo si su email esta verificado y el administrador puede resetearla.","x":500,"y":4,"width":420,"height":256},
+		{"id":"sub3_1","type":"text","text":"### 3.1\n\nUsuarios y pertenencias: alta, edicion, activacion, rol por mancomunidad, ultimo administrador y reset de contrasena.\n\n**Criterio:** El administrador crea un profesor, le cambia el rol y no puede dejar su mancomunidad sin administrador.","x":500,"y":300,"width":420,"height":240},
+		{"id":"sub3_2","type":"text","text":"### 3.2\n\nCentros: CRUD, nombre unico por mancomunidad y desactivacion con dependencias.\n\n**Criterio:** Un centro se crea, se renombra y se desactiva sin afectar a los de otra mancomunidad.","x":500,"y":580,"width":420,"height":240},
+		{"id":"sub3_3","type":"text","text":"### 3.3\n\nCursos escolares: crear, activar, cerrar con preflight y reabrir con motivo, con un unico activo por mancomunidad.\n\n**Criterio:** Al activar un curso el anterior queda cerrado, solo uno figura como ACTIVO, el cierre cancela las sesiones PROGRAMADA sin lista y la reapertura no las resucita.","x":500,"y":860,"width":420,"height":264},
+		{"id":"sub3_4","type":"text","text":"### 3.4\n\nRecuperacion de contrasena desde el login: solicitud uniforme, correo transaccional y enlace de un solo uso.\n\n**Criterio:** Un usuario que olvida su contrasena la restablece desde el email sin intervencion del administrador y el enlace solo sirve una vez.","x":500,"y":1160,"width":420,"height":240},
+		{"id":"sub3_5","type":"text","text":"### 3.5\n\nVerificacion de email al alta y cambio de direccion con doble confirmacion; el administrador no puede cambiar emails.\n\n**Criterio:** Una cuenta sin verificar no recibe enlaces de recuperacion, y un cambio de email no se aplica hasta confirmar la direccion nueva.","x":500,"y":1440,"width":420,"height":240}
+	],
+	"edges":[
+		{"id":"e_title_bullets3","fromNode":"phase3","fromSide":"bottom","toNode":"bullets3","toSide":"top"},
+		{"id":"e_title_accept3","fromNode":"phase3","fromSide":"right","toNode":"accept3","toSide":"left"},
+		{"id":"37840e00a986915c","fromNode":"sub3_1","fromSide":"bottom","toNode":"sub3_2","toSide":"top"},
+		{"id":"dba0e816a829ed30","fromNode":"sub3_2","fromSide":"bottom","toNode":"sub3_3","toSide":"top"},
+		{"id":"341319f48e5e7432","fromNode":"sub3_3","fromSide":"bottom","toNode":"sub3_4","toSide":"top"},
+		{"id":"bbee8acfa3d71c7f","fromNode":"sub3_4","fromSide":"bottom","toNode":"sub3_5","toSide":"top"},
+		{"id":"273bf72331e29f0e","fromNode":"bullets3","fromSide":"right","toNode":"sub3_1","toSide":"left"},
+		{"id":"b2e21320f27e5310","fromNode":"bullets3","fromSide":"right","toNode":"sub3_2","toSide":"left"},
+		{"id":"6503fc58ba09fcb3","fromNode":"bullets3","fromSide":"right","toNode":"sub3_3","toSide":"left"},
+		{"id":"8051f5b48630603c","fromNode":"bullets3","fromSide":"right","toNode":"sub3_4","toSide":"left"},
+		{"id":"3156a4cbaa8dbc44","fromNode":"bullets3","fromSide":"right","toNode":"sub3_5","toSide":"left"}
+	]
+}

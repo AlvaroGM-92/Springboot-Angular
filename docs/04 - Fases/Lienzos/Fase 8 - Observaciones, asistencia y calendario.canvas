@@ -1,0 +1,22 @@
+{
+	"nodes":[
+		{"id":"phase8","type":"text","text":"# Fase 8 — Observaciones, asistencia y calendario\n\nEstado: Pendiente","x":-80,"y":0,"width":420,"height":140},
+		{"id":"accept8","type":"text","text":"## Criterio de aceptacion\npasar lista de 20 alumnos se hace en una pantalla; una correccion posterior queda registrada en el historial que consulta la administracion; el resumen del alumno refleja las faltas; una sesion sin lista aparece como pendiente y puede abrirse otro dia; un dia no lectivo no genera clases y cancela las pendientes sin tocar las que ya tienen lista.","x":500,"y":0,"width":420,"height":280},
+		{"id":"sub8_1","type":"text","text":"### 8.1\n\nObservaciones propias: CRUD con control de propiedad y curso escolar obligatorio inferido o indicado.\n\n**Criterio:** El profesor crea y edita solo sus observaciones, cada una queda en su curso y la administracion las consulta sin editarlas.","x":500,"y":320,"width":420,"height":240},
+		{"id":"sub8_2","type":"text","text":"### 8.2\n\nSesiones de clase generadas desde el horario, bandeja de pendientes, lista masiva de asistencia por sesion y exclusion de matriculas BAJA en la fecha.\n\n**Criterio:** Pasar lista de 20 alumnos se hace en una pantalla, se guarda en una sola operacion, una sesion sin lista aparece como pendiente y un alumno dado de baja no se carga en la siguiente.","x":500,"y":600,"width":420,"height":300},
+		{"id":"sub8_3","type":"text","text":"### 8.3\n\nCancelacion de sesiones y calendario de dias no lectivos: motivo, autor, omision en la generacion y cancelacion de las PROGRAMADA sin asistencia.\n\n**Criterio:** Un festivo no genera sesiones y cancela las pendientes; una sesion cancelada no admite lista y la clase impartida se registra como sesion puntual.","x":500,"y":940,"width":420,"height":280},
+		{"id":"sub8_4","type":"text","text":"### 8.4\n\nHistorial inmutable, contadores de faltas, retrasos y justificadas, resumen historico y consulta administrativa.\n\n**Criterio:** Una correccion queda en el historial visible solo para administracion, el resumen refleja las faltas y una matricula purgada muestra sus contadores anonimizados.","x":500,"y":1260,"width":420,"height":280},
+		{"id":"bullets8","type":"text","text":"## Contenido\n- CRUD de observaciones propias, siempre asociadas a un curso escolar.\n- Sesiones de clase y lista masiva de asistencia.\n- Generacion automatica de las sesiones del dia desde el horario, con bandeja de pendientes.\n- Cancelacion de sesiones PROGRAMADA con motivo y autor, sin lista de asistencia.\n- Calendario minimo de dias no lectivos por mancomunidad o centro, integrado con la generacion.\n- Edicion de asistencia en cualquier momento.\n- Historial inmutable de cambios de asistencia, visible solo para administracion.\n- Contadores de faltas, retrasos y justificadas, con consulta del resumen historico anonimizado.\n- Consulta administrativa de observaciones, asistencias e historial, sin escritura salvo la cancelacion auditada.\n- Asignacion del sustituto en las sesiones del periodo y lista de clase limitada a matriculas ACTIVA en la fecha.\n- Tests de propiedad, duplicados, guardado masivo, cancelacion, sustitucion, baja de alumno y registro del historial.","x":-80,"y":180,"width":420,"height":720}
+	],
+	"edges":[
+		{"id":"e_title_bullets8","fromNode":"phase8","fromSide":"bottom","toNode":"bullets8","toSide":"top"},
+		{"id":"e_title_accept8","fromNode":"phase8","fromSide":"right","toNode":"accept8","toSide":"left"},
+		{"id":"53a8ac55110fa143","fromNode":"bullets8","fromSide":"right","toNode":"sub8_1","toSide":"left"},
+		{"id":"3f39572df5405947","fromNode":"bullets8","fromSide":"right","toNode":"sub8_2","toSide":"left"},
+		{"id":"cd63f13fe64624f9","fromNode":"bullets8","fromSide":"right","toNode":"sub8_3","toSide":"left"},
+		{"id":"9e9c560fd20a1a10","fromNode":"bullets8","fromSide":"right","toNode":"sub8_4","toSide":"left"},
+		{"id":"64eac551c0837903","fromNode":"sub8_1","fromSide":"bottom","toNode":"sub8_2","toSide":"top"},
+		{"id":"5d9463321e519f95","fromNode":"sub8_2","fromSide":"bottom","toNode":"sub8_3","toSide":"top"},
+		{"id":"a3c52dd77463472a","fromNode":"sub8_3","fromSide":"bottom","toNode":"sub8_4","toSide":"top"}
+	]
+}

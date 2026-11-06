@@ -1,0 +1,19 @@
+{
+	"nodes":[
+		{"id":"phase12","type":"text","text":"# Fase 12 — Control horario\n\nEstado: Pendiente (posterior a la v1)","x":-80,"y":0,"width":420,"height":100},
+		{"id":"bullets12","type":"text","text":"## Contenido\n- Entidad fichaje append-only con hora del servidor y centro.\n- Pantalla de entrada, salida e historial propio.\n- Panel de administracion con resumen mensual, incidencias y exportacion CSV.\n- Correccion y anulacion con motivo y auditoria.\n- Retencion de 4 anos y consulta del trabajador.\n- Tests de jornada abierta, doble entrada, correccion y aislamiento entre mancomunidades.","x":-80,"y":140,"width":420,"height":360},
+		{"id":"accept12","type":"text","text":"## Criterio de aceptacion\nun profesor ficha entrada y salida desde el navegador del centro; la administracion ve el total mensual, corrige una salida olvidada con motivo y la correccion queda registrada sin borrar el fichaje original.","x":500,"y":0,"width":420,"height":200},
+		{"id":"sub12_1","type":"text","text":"### 12.1\n\nEntidad fichaje append-only, pantalla de entrada y salida e historial propio.\n\n**Criterio:** Un profesor ficha con la hora del servidor y ve su jornada abierta y su historial.","x":500,"y":240,"width":420,"height":200},
+		{"id":"sub12_2","type":"text","text":"### 12.2\n\nPanel de administracion, deteccion de incidencias y correcciones con motivo y auditoria.\n\n**Criterio:** La administracion corrige una salida olvidada con motivo y el fichaje original sigue visible.","x":500,"y":480,"width":420,"height":220},
+		{"id":"sub12_3","type":"text","text":"### 12.3\n\nResumen mensual, exportacion CSV y retencion de 4 anos.\n\n**Criterio:** El total mensual cuadra con los fichajes y la exportacion respeta el filtro por mancomunidad.","x":500,"y":740,"width":420,"height":220}
+	],
+	"edges":[
+		{"id":"e_title_bullets12","fromNode":"phase12","fromSide":"bottom","toNode":"bullets12","toSide":"top"},
+		{"id":"e_title_accept12","fromNode":"phase12","fromSide":"right","toNode":"accept12","toSide":"left"},
+		{"id":"b5a905f34fa9e397","fromNode":"sub12_1","fromSide":"bottom","toNode":"sub12_2","toSide":"top"},
+		{"id":"6b760795b9d2e186","fromNode":"sub12_2","fromSide":"bottom","toNode":"sub12_3","toSide":"top"},
+		{"id":"c14ef4c6725b3468","fromNode":"bullets12","fromSide":"right","toNode":"sub12_1","toSide":"left"},
+		{"id":"895253c24263e375","fromNode":"bullets12","fromSide":"right","toNode":"sub12_2","toSide":"left"},
+		{"id":"b24a0c820d3d8b0d","fromNode":"bullets12","fromSide":"right","toNode":"sub12_3","toSide":"left"}
+	]
+}

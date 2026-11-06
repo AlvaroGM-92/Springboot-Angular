@@ -1,0 +1,28 @@
+{
+	"nodes":[
+		{"id":"phase2","type":"text","text":"# Fase 2 — Autenticacion y seguridad base\n\nEstado: Pendiente","x":-80,"y":0,"width":420,"height":140},
+		{"id":"bullets2","type":"text","text":"## Contenido\n- Entidades Usuario, UsuarioMancomunidad, Mancomunidad y RefreshToken.\n- Login global, deteccion de pertenencias, token de seleccion, seleccion y cambio de mancomunidad.\n- Refresh, logout, /auth/me y cambio de contrasena.\n- Spring Security, filtro JWT, TenantContext, BCrypt, CORS y manejo de errores.\n- Pantalla de login, seleccion, AuthService con signals, interceptor y guards.\n- Layout con menu por rol.\n- Cambio obligatorio de contrasena temporal.\n- JWT RS256 con kid, JWKS, rotacion y token_version.\n- Familias de refresh, reutilizacion, limite de sesiones y logout-all.\n- Rate limiting en recuperacion, verificacion, refresh, escrituras y soporte.\n- Tests de login, pertenencias, token caducado, cambio obligatorio, acceso por rol y aislamiento.","x":-80,"y":180,"width":420,"height":640},
+		{"id":"accept2","type":"text","text":"## Criterio de aceptacion\nun profesor y un administrador entran, recargan la pagina sin volver a autenticarse, no pueden acceder a rutas del otro rol, un usuario con dos pertenencias elige mancomunidad sin escribir de nuevo la contrasena y quien tiene una contrasena temporal debe cambiarla antes de operar; ademas, un refresh reutilizado cierra la familia y la sexta sesion desaloja la mas antigua.","x":500,"y":0,"width":420,"height":280},
+		{"id":"sub2_1","type":"text","text":"### 2.1\n\nLogin global, deteccion de pertenencias, /auth/me y cambio de contrasena.\n\n**Criterio:** Un usuario con una sola pertenencia entra directamente y /auth/me devuelve su rol y su mancomunidad.","x":500,"y":320,"width":420,"height":220},
+		{"id":"sub2_2","type":"text","text":"### 2.2\n\nRefresh rotatorio, logout, filtro JWT, guards, interceptor y layout con menu por rol.\n\n**Criterio:** Recargar la pagina mantiene la sesion, el token caducado se renueva y cada rol solo ve sus rutas.","x":500,"y":580,"width":420,"height":220},
+		{"id":"sub2_3","type":"text","text":"### 2.3\n\nPantalla de seleccion y cambio de mancomunidad con token de seleccion.\n\n**Criterio:** Un usuario con dos pertenencias elige sin repetir la contrasena y no obtiene datos de la otra cambiando un ID.","x":500,"y":840,"width":420,"height":220},
+		{"id":"sub2_4","type":"text","text":"### 2.4\n\nFlag debe_cambiar_password, contrasena temporal con caducidad y puerta de cambio obligatorio en el login.\n\n**Criterio:** Quien entra con una contrasena temporal no puede operar hasta cambiarla y la temporal caduca en 24 horas.","x":500,"y":1100,"width":420,"height":240},
+		{"id":"sub2_5","type":"text","text":"### 2.5\n\nClaves RS256 con kid, JWKS, rotacion, token_version, familias de refresh, deteccion de reutilizacion, limite de sesiones y logout-all.\n\n**Criterio:** Un refresh reutilizado cierra la familia, el access token revocado deja de valer en menos de 60 segundos y la sexta sesion desaloja la mas antigua.","x":500,"y":1380,"width":420,"height":280},
+		{"id":"sub2_6","type":"text","text":"### 2.6\n\nRate limiting de recuperacion, verificacion, refresh, escrituras y soporte, con 429 y Retry-After.\n\n**Criterio:** Superar el cubo de recuperacion responde 429 sin revelar si el email existe y el login correcto sigue funcionando.","x":500,"y":1700,"width":420,"height":240}
+	],
+	"edges":[
+		{"id":"e_title_bullets2","fromNode":"phase2","fromSide":"bottom","toNode":"bullets2","toSide":"top"},
+		{"id":"e_title_accept2","fromNode":"phase2","fromSide":"right","toNode":"accept2","toSide":"left"},
+		{"id":"3d6585befb6b9fa0","fromNode":"bullets2","fromSide":"right","toNode":"sub2_1","toSide":"left"},
+		{"id":"76d78f177bc1e16a","fromNode":"bullets2","fromSide":"right","toNode":"sub2_2","toSide":"left"},
+		{"id":"2741884e13d83c65","fromNode":"bullets2","fromSide":"right","toNode":"sub2_3","toSide":"left"},
+		{"id":"09ad9418a3a1edaf","fromNode":"bullets2","fromSide":"right","toNode":"sub2_4","toSide":"left"},
+		{"id":"ad2a56cc84f0d1a2","fromNode":"bullets2","fromSide":"right","toNode":"sub2_5","toSide":"left"},
+		{"id":"edeeaa00e2c924f9","fromNode":"bullets2","fromSide":"right","toNode":"sub2_6","toSide":"left"},
+		{"id":"e497cba532422c8e","fromNode":"sub2_1","fromSide":"bottom","toNode":"sub2_2","toSide":"top"},
+		{"id":"d578f6ee4ba277a9","fromNode":"sub2_2","fromSide":"bottom","toNode":"sub2_3","toSide":"top"},
+		{"id":"25ca69936437302c","fromNode":"sub2_3","fromSide":"bottom","toNode":"sub2_4","toSide":"top"},
+		{"id":"c4e9fb087d5a1c11","fromNode":"sub2_4","fromSide":"bottom","toNode":"sub2_5","toSide":"top"},
+		{"id":"592210d7ab0f4b5b","fromNode":"sub2_5","fromSide":"bottom","toNode":"sub2_6","toSide":"top"}
+	]
+}
