@@ -1,6 +1,8 @@
 spring:
   application:
     name: mancomunidad-backend
+  flyway:
+    locations: classpath:db/migration,classpath:db/dev
 
 logging:
   level:

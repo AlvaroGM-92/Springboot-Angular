@@ -1,0 +1,47 @@
+name: mancomunidad
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: mancomunidad-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mancomunidad}
+      MYSQL_USER: ${MYSQL_USER:-mancomunidad}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mancomunidad}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      TZ: Europe/Madrid
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - mancomunidad-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+  flyway:
+    image: flyway/flyway:11
+    container_name: mancomunidad-flyway
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      FLYWAY_URL: "jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-mancomunidad}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+      FLYWAY_USER: ${MYSQL_USER:-mancomunidad}
+      FLYWAY_PASSWORD: ${MYSQL_PASSWORD:-mancomunidad}
+      FLYWAY_LOCATIONS: "filesystem:/flyway/sql,filesystem:/flyway/sql-dev"
+      FLYWAY_BASELINE_ON_MIGRATE: "false"
+      TZ: Europe/Madrid
+    volumes:
+      - ./backend/src/main/resources/db/migration:/flyway/sql:ro
+      - ./backend/src/main/resources/db/dev:/flyway/sql-dev:ro
+    command: migrate
+
+volumes:
+  mancomunidad-mysql-data:

@@ -13,7 +13,7 @@ tags:
 > [!info] Documentación viva
 > Esta carpeta es la fuente de verdad del proyecto. Los requisitos, las decisiones y el progreso viven en notas enlazadas. El código se escribirá **después** de definir cada fase.
 
-**Estado actual:** Fase 0 cerrada ✅ · Fase 1 en curso 🟡 (1.1 completada) · **Siguiente:** Fase 1.2 — MySQL, Flyway y seed.
+**Estado actual:** Fase 0 cerrada ✅ · Fase 1 en curso 🟡 (1.1 y 1.2 completadas) · **Siguiente:** Fase 1.3 — TenantContext y filtro de aislamiento.
 
 ## Ruta de lectura
 
@@ -42,7 +42,7 @@ tags:
 | Fase | Estado |
 | --- | --- |
 | 0 — Definición y documentación | ✅ Cerrada |
-| 1 — Entorno y esqueleto | 🟡 En curso (1.1 completada) |
+| 1 — Entorno y esqueleto | 🟡 En curso (1.1 y 1.2 completadas) |
 | 2 — Autenticación y seguridad base | ⬜ Pendiente |
 | 3 — Usuarios y centros | ⬜ Pendiente |
 | 4 — Asignaturas y profesorado | ⬜ Pendiente |

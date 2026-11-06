@@ -40,10 +40,11 @@ No entra:
 ## 3. Tareas
 
 - [x] Backend: esqueleto Spring Boot con Web y Actuator, perfiles `dev` y `test`.
-- [x] Backend: `/actuator/health` responde `UP` sin base de datos.
-- [ ] Backend: JPA, Security, Validation, Flyway y MySQL.
-- [ ] Base de datos: `compose.yaml` con MySQL 8.4 y volumen persistente.
-- [ ] Base de datos: migración inicial y seed de desarrollo.
+- [x] Backend: `/actuator/health` responde `UP`.
+- [x] Backend: JPA, Validation, Flyway y MySQL.
+- [x] Base de datos: `compose.yaml` con MySQL 8.4, volumen persistente y servicio Flyway.
+- [x] Base de datos: migración inicial y seed de desarrollo.
+- [ ] Backend: Spring Security (Fase 2).
 - [ ] Backend: `TenantContext` y filtro base de aislamiento.
 - [ ] Frontend: Angular 22 con proxy a `/api` y home con el health.
 - [ ] Documentación: README de arranque en tres comandos.
@@ -54,7 +55,7 @@ No entra:
 | Sub-fase | Contenido | Criterio de aceptación | Estado |
 | --- | --- | --- | --- |
 | 1.1 | Esqueleto de backend con Spring Initializr (Web, Actuator), perfiles `dev` y `test` y `/actuator/health`. | `./mvnw spring-boot:run` arranca y `/actuator/health` devuelve `UP` sin base de datos. | ✅ Completada |
-| 1.2 | `compose.yaml` con MySQL 8.4, Flyway, esquema base y seed de mancomunidad de tipo `MUSICA`, curso `2026-2027` y administrador. | `docker compose up -d` levanta MySQL y Flyway aplica las migraciones sin errores. | ⬜ Pendiente |
+| 1.2 | `compose.yaml` con MySQL 8.4, Flyway, esquema base y seed de mancomunidad de tipo `MUSICA`, curso `2026-2027` y administrador. | `docker compose up -d` levanta MySQL y Flyway aplica las migraciones sin errores. | ✅ Completada |
 | 1.3 | `TenantContext`, resolución de la mancomunidad activa y filtro base de aislamiento. | Con dos mancomunidades sembradas, una consulta sin tenant activo no devuelve datos. | ⬜ Pendiente |
 | 1.4 | Angular 22 con proxy a `/api` (la API vive en `/api/v1`), home que consume el health y README de arranque. | `npm start` sirve la home, muestra el estado del backend y el README arranca en tres comandos. | ⬜ Pendiente |
 | 1.5 | Pipeline de GitHub Actions: build y tests de backend y frontend, lint, validación de migraciones Flyway y publicación de imágenes Docker. | Un PR a `main` ejecuta el pipeline en verde y bloquea el merge si falla. | ⬜ Pendiente |
@@ -95,9 +96,19 @@ No entra:
 - Tests: contexto de aplicación y `GET /actuator/health` con `status = UP`.
 - Verificado: `./mvnw test` en verde (2 tests) y `./mvnw spring-boot:run` arranca en el puerto 8080 con `{"status":"UP"}`.
 
+### 1.2 — MySQL, Flyway y datos de desarrollo (2026-11-06)
+
+- `compose.yaml` con `mysql:8.4`, volumen `mancomunidad-mysql-data`, healthcheck y servicio `flyway/flyway:11` que aplica las migraciones al arrancar.
+- Variables de entorno con valores por defecto en `application.yml` (`APP_DB_URL`, `APP_DB_USER`, `APP_DB_PASSWORD`) y plantilla en `.env.example`.
+- `V1__esquema_inicial.sql`: 31 tablas del modelo de datos, FKs simples, claves únicas por mancomunidad, `CHECK` de enumeraciones, `created_at`/`updated_at` y `version` en las tablas editables.
+- `V2__datos_iniciales.sql` (solo perfiles `dev` y `test`, en `db/dev`): mancomunidad `demo` de tipo `MUSICA`, curso `2026-2027` en `ACTIVO` y administrador `admin@mancomunidad.local` con cambio de contraseña obligatorio.
+- Flyway corre dos veces de forma segura: el servicio de Compose aplica las migraciones y el backend las valida al arrancar.
+- Tests de integración con MySQL 8.4 en Testcontainers (`MigracionesTests`, `HealthEndpointTests` y contexto): **4 tests en verde**.
+- Verificado: `docker compose up -d` deja MySQL en `healthy`, Flyway termina con `Exited (0)` y el esquema en la versión 2; `./mvnw spring-boot:run` responde `{"status":"UP"}` con la base de datos conectada.
+
 ## 9. Siguiente fase
 
-Completar 1.2–1.5 y cerrar la Fase 1. Después, Fase 2 — Autenticación y seguridad base.
+Completar 1.3–1.5 y cerrar la Fase 1. Después, Fase 2 — Autenticación y seguridad base.
 
 ## Relacionado
 

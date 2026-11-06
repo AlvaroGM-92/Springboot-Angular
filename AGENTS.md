@@ -19,8 +19,8 @@ Flyway, JWT con refresh token y Docker Compose.
 ## Estado actual
 
 - **Fase 0 (definición y documentación) cerrada.**
-- **Fase 1 (entorno y esqueleto) en curso:** 1.1 completada (backend Spring Boot con `/actuator/health`). Siguiente: 1.2 (MySQL, Flyway y seed).
-- No adelantar sub-fases ni crear `frontend/` o `compose.yaml` hasta que la sub-fase correspondiente lo pida.
+- **Fase 1 (entorno y esqueleto) en curso:** 1.1 y 1.2 completadas (backend Spring Boot, MySQL 8.4, Flyway y seed). Siguiente: 1.3 (`TenantContext` y filtro de aislamiento).
+- No adelantar sub-fases ni crear `frontend/` hasta que la sub-fase 1.4 lo pida.
 
 ## La documentación es la fuente de verdad
 
@@ -38,16 +38,28 @@ decida lo contrario; entonces se actualizan las dos en el mismo cambio.
 
 Backend (requiere JDK 21; el JDK del sistema es 27):
 
+Base de datos (Docker debe estar en marcha):
+
+```bash
+docker compose up -d       # MySQL + Flyway (aplica V1 y el seed de dev)
+docker compose ps -a       # flyway debe terminar en Exited (0)
+docker compose down        # conserva el volumen
+```
+
+Backend (requiere JDK 21; el JDK del sistema es 27):
+
 ```bash
 cd backend
 export JAVA_HOME=/home/alvarogm/.jdks/ms-21.0.12.1
 export PATH="$JAVA_HOME/bin:$PATH"
 ./mvnw spring-boot:run     # http://localhost:8080/actuator/health
-./mvnw test
+./mvnw test                # usa MySQL 8.4 en Testcontainers
 ./mvnw verify
 ```
 
-Frontend y Compose todavía no existen; se añadirán en las sub-fases 1.2 y 1.4.
+Credenciales de desarrollo: `admin@mancomunidad.local` / `Temporal1234` (exige cambio de contraseña).
+
+Frontend todavía no existe; se añadirá en la sub-fase 1.4.
 **No inventes comandos ni crees proyectos que la fase no pida.**
 
 ### CI/CD (Fase 1, PEN-28)

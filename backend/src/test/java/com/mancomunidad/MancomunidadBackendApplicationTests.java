@@ -1,12 +1,9 @@
 package com.mancomunidad;
 
+import com.mancomunidad.support.IntegrationTestBase;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
-@ActiveProfiles("test")
-class MancomunidadBackendApplicationTests {
+class MancomunidadBackendApplicationTests extends IntegrationTestBase {
 
 	@Test
 	void contextLoads() {
