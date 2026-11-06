@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mancomunidad-backend
+  main:
+    banner-mode: "off"
+
+logging:
+  level:
+    root: WARN

@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: mancomunidad-backend
+
+logging:
+  level:
+    com.mancomunidad: DEBUG

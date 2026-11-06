@@ -3,7 +3,7 @@
 Aplicación web para gestionar mancomunidades de centros de enseñanza de cualquier área —música, danza, artes escénicas, idiomas, deportes u otras—: centros, profesorado, asignaturas, alumnos, instrumentos cuando el área los usa, horarios, observaciones, asistencia y preparación de clases. Preparada para alojar varias mancomunidades con identidad global de usuario y aislamiento por `mancomunidad_id`.
 
 > [!note] Estado
-> **Fase 0 en revisión.** Las decisiones están cerradas y solo falta la aprobación final. Todavía no hay código de aplicación: primero se está cerrando la definición, el modelo y la arquitectura. La siguiente fase es el entorno y el esqueleto del proyecto, pero no empezará hasta cerrar la Fase 0.
+> **Fase 0 cerrada.** **Fase 1 en curso:** 1.1 completada con el esqueleto del backend (Spring Boot 4.1.2 y `/actuator/health`). La siguiente sub-fase es 1.2: MySQL, Flyway y datos de desarrollo.
 
 ## Documentación
 
@@ -52,10 +52,20 @@ SpringbootAngular/
 └── README.md
 ```
 
+## Arranque del backend
+
+Requiere JDK 21. El JDK del sistema es 27, así que hay que fijar `JAVA_HOME`:
+
+```bash
+cd backend
+export JAVA_HOME=/home/alvarogm/.jdks/ms-21.0.12.1
+export PATH="$JAVA_HOME/bin:$PATH"
+./mvnw spring-boot:run
+curl http://localhost:8080/actuator/health
+```
+
 ## Siguiente paso
 
-**Cerrar la Fase 0.** La documentación sigue en revisión y no se empezará la Fase 1 hasta que el usuario dé el visto bueno final.
-
-Después, **Fase 1 — Entorno y esqueleto:** crear los proyectos Spring Boot y Angular, levantar MySQL, configurar Flyway con el esquema multi-tenant y la mancomunidad inicial, y comprobar que ambos arrancan juntos.
+Completar la **Fase 1 — Entorno y esqueleto**: MySQL con Flyway y datos de desarrollo (1.2), aislamiento por tenant (1.3), frontend Angular (1.4) y pipeline de CI (1.5).
 
 Las decisiones y el progreso se registran en el [diario](docs/06%20-%20Diario/Diario%20de%20cambios.md).
