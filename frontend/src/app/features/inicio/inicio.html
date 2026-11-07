@@ -1,0 +1,38 @@
+<main class="inicio">
+  <header class="inicio__cabecera">
+    <p class="inicio__etiqueta">Gestión de Mancomunidad</p>
+    <h1>Estado del entorno</h1>
+    <p class="inicio__descripcion">
+      Comprobación del backend desde la aplicación Angular. La petición viaja por el proxy de
+      desarrollo a <code>/actuator/health</code>.
+    </p>
+  </header>
+
+  <section class="inicio__panel" aria-labelledby="estado-titulo">
+    <h2 id="estado-titulo">Backend</h2>
+
+    <p [class]="'inicio__estado inicio__estado--' + estado()" aria-live="polite">
+      @switch (estado()) {
+        @case ('cargando') {
+          Comprobando…
+        }
+        @case ('arriba') {
+          Disponible
+        }
+        @default {
+          No disponible
+        }
+      }
+    </p>
+
+    <p class="inicio__detalle">
+      @if (ultimaComprobacion(); as fecha) {
+        Última comprobación: {{ fecha.toLocaleTimeString('es-ES') }}
+      } @else {
+        Esperando la primera respuesta…
+      }
+    </p>
+
+    <button type="button" class="inicio__boton" (click)="comprobar()">Comprobar de nuevo</button>
+  </section>
+</main>

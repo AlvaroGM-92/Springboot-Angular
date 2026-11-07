@@ -2,7 +2,7 @@
 tipo: referencia
 estado: activo
 fase: 0
-actualizado: 2026-11-04
+actualizado: 2026-11-07
 tags:
   - diario
   - seguimiento
@@ -22,6 +22,8 @@ Registro cronológico de sesiones de trabajo. Cada entrada enlaza a una nota con
 | 2026-11-02 | 0 | Modelo abierto a cualquier área de enseñanza: tipo informativo de mancomunidad, tipo de asignatura y módulo de instrumentos opcional que solo se activa con asignaturas musicales instrumentales y se oculta sin borrar datos. Horario editable por el profesor titular y por el administrador mientras está en borrador, con autoría registrada y bloqueo tras finalizar. | [[2026-11-02]] |
 | 2026-11-03 | 0 | Revisión crítica de la Fase 0: 48 huecos y decisiones aplazadas recogidos en [[Pendientes]], con identificadores `PEN-01`–`PEN-48`, tipo, momento, destino y estado. Resueltos los seis puntos de coherencia documental (`PEN-01` a `PEN-06`) y los siete de modelo (`PEN-07` a `PEN-13`): sesión cancelada, días no lectivos, curso en observaciones, resumen anonimizado de asistencia, borrado de franjas, conflicto de alumno y límite de conflictos de profesor entre tenants. | [[2026-11-03]] |
 | 2026-11-04 | 0 | Tercer lote de modelo (`PEN-14` a `PEN-18`): copia de horario al curso siguiente, cierre y reapertura de curso, sustituciones, baja de alumno y carácter local del alumno. Nuevas entidades, tablas, endpoints, requisitos y autorizaciones. Cuarto lote de seguridad (`PEN-19` a `PEN-27`): MFA fuera de la v1, verificación y cambio de email, RS256 con `kid` y JWKS, familias de refresh con detección de reutilización, límite de sesiones, rate limiting, idempotencia y bootstrap del primer `SUPERADMIN`. | [[2026-11-04]] |
+| 2026-11-06 | 1 | Fases 1.1 y 1.2: esqueleto del backend con Spring Boot 4.1.2, perfiles `dev`/`test` y health; MySQL 8.4 con Compose, Flyway con las 31 tablas del modelo, seed de la mancomunidad `demo`, su curso `2026-2027` y el administrador, y tests con Testcontainers. | [[2026-11-06]] |
+| 2026-11-07 | 1 | Fases 1.3–1.5: `TenantContext` por petición, resolución provisional por cabecera `X-Mancomunidad-Id`, filtro de aislamiento, `GET /api/v1/tenant/actual`, `404` sin tenant y segunda mancomunidad `demo-b`; frontend Angular 22 con proxy `/api` y `/actuator`, home que muestra el health, tests con Vitest y README de arranque; CI de GitHub Actions con backend, frontend, Flyway y Docker, CD a GHCR, Spotless, ESLint/Prettier y Dockerfiles de ambos módulos. **Fase 1 cerrada** y fusionada en `main`. | [[2026-11-07]] |
 
 ## Cómo añadir una entrada
 
@@ -40,4 +42,4 @@ Registro cronológico de sesiones de trabajo. Cada entrada enlaza a una nota con
 
 ## Relacionado
 
-[[Portada]] · [[Roadmap]] · [[Cómo usar esta documentación]] · [[2026-10-27]] · [[2026-10-28]] · [[2026-10-29]] · [[2026-11-02]] · [[2026-11-03]] · [[2026-11-04]]
+[[Portada]] · [[Roadmap]] · [[Cómo usar esta documentación]] · [[2026-10-27]] · [[2026-10-28]] · [[2026-10-29]] · [[2026-11-02]] · [[2026-11-03]] · [[2026-11-04]] · [[2026-11-06]]

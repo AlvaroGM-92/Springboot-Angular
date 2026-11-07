@@ -125,6 +125,9 @@ El panel **no muestra datos académicos** de las mancomunidades. El soporte de c
 > [!danger] MySQL no tiene row-level security
 > El aislamiento es responsabilidad de la aplicación. Una consulta sin filtro puede filtrar datos entre mancomunidades. Por eso las pruebas de aislamiento son obligatorias en cada fase que toque datos de negocio.
 
+> [!note] Implementación provisional en la Fase 1
+> Mientras no existe autenticación, los perfiles `dev` y `test` resuelven el tenant con la cabecera `X-Mancomunidad-Id`, activa solo con `app.tenant.header-enabled=true`. `GET /api/v1/tenant/actual` permite comprobar la resolución. En producción está desactivado y la Fase 2 lo sustituye por el JWT.
+
 ## 7. Qué implica en el dominio
 
 - `Mancomunidad` es la raíz de configuración.

@@ -1,6 +1,11 @@
 # Obsidian: estado local del vault
 docs/.obsidian/
 
+# Variables de entorno locales
+.env
+.env.*
+!.env.example
+
 # Sistema operativo
 .DS_Store
 Thumbs.db

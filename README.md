@@ -3,7 +3,7 @@
 Aplicación web para gestionar mancomunidades de centros de enseñanza de cualquier área —música, danza, artes escénicas, idiomas, deportes u otras—: centros, profesorado, asignaturas, alumnos, instrumentos cuando el área los usa, horarios, observaciones, asistencia y preparación de clases. Preparada para alojar varias mancomunidades con identidad global de usuario y aislamiento por `mancomunidad_id`.
 
 > [!note] Estado
-> **Fase 0 en revisión.** Las decisiones están cerradas y solo falta la aprobación final. Todavía no hay código de aplicación: primero se está cerrando la definición, el modelo y la arquitectura. La siguiente fase es el entorno y el esqueleto del proyecto, pero no empezará hasta cerrar la Fase 0.
+> **Fases 0 y 1 cerradas.** Backend Spring Boot 4.1.2 con MySQL 8.4, Flyway y aislamiento por tenant; frontend Angular 22; CI/CD con GitHub Actions y publicación de imágenes en GHCR. La siguiente fase es la 2: autenticación y seguridad base.
 
 ## Documentación
 
@@ -52,10 +52,54 @@ SpringbootAngular/
 └── README.md
 ```
 
+## Arranque en local
+
+Necesitas Docker, JDK 21 y Node 26. El JDK del sistema es 27, así que hay que fijar `JAVA_HOME`.
+
+**Tres comandos, en tres terminales:**
+
+```bash
+# 1. Base de datos y migraciones (MySQL 8.4 + Flyway)
+docker compose up -d
+
+# 2. Backend (http://localhost:8080)
+cd backend
+export JAVA_HOME=/home/alvarogm/.jdks/ms-21.0.12.1
+export PATH="$JAVA_HOME/bin:$PATH"
+./mvnw spring-boot:run
+
+# 3. Frontend (http://localhost:4200)
+cd frontend
+npm install        # solo la primera vez
+npm start
+```
+
+Abre `http://localhost:4200`: la home muestra si el backend está disponible. El proxy de Angular reenvía `/api` y `/actuator` al backend, así que no hay CORS en desarrollo.
+
+La configuración local se puede ajustar copiando `.env.example` a `.env`.
+
+**Credenciales de desarrollo:** `admin@mancomunidad.local` / `Temporal1234`. La cuenta exige cambiar la contraseña al entrar. Solo se siembran con el perfil `dev`.
+
+Mientras no existe autenticación, `dev` resuelve el tenant con la cabecera `X-Mancomunidad-Id` (IDs sembrados: `demo = 1`, `demo-b = 2`):
+
+```bash
+curl -H 'X-Mancomunidad-Id: 1' http://localhost:8080/api/v1/tenant/actual
+```
+
+## Integración y entrega continua
+
+- `.github/workflows/ci.yml`: en cada `push` y PR a `main` ejecuta `./mvnw -B verify`, `npm run lint`, `npm run format:check`, los tests de ambos módulos, el build de Angular, las migraciones Flyway sobre MySQL efímero y la construcción de ambas imágenes Docker.
+- `.github/workflows/cd.yml`: manual o con una etiqueta `v*`; publica las imágenes en GHCR (`mancomunidad-backend` y `mancomunidad-frontend`).
+- El despliegue remoto se conectará cuando exista la infraestructura de staging/producción.
+
+```bash
+# Equivalente local del CI
+cd backend && ./mvnw -B verify
+cd ../frontend && npm ci && npm run lint && npm run format:check && npm test -- --watch=false && npm run build
+```
+
 ## Siguiente paso
 
-**Cerrar la Fase 0.** La documentación sigue en revisión y no se empezará la Fase 1 hasta que el usuario dé el visto bueno final.
-
-Después, **Fase 1 — Entorno y esqueleto:** crear los proyectos Spring Boot y Angular, levantar MySQL, configurar Flyway con el esquema multi-tenant y la mancomunidad inicial, y comprobar que ambos arrancan juntos.
+Al subir `main`, comprobar la primera ejecución del workflow **CI** en GitHub y activar la protección de rama con ese check como obligatorio. Después, **Fase 2 — Autenticación y seguridad base**.
 
 Las decisiones y el progreso se registran en el [diario](docs/06%20-%20Diario/Diario%20de%20cambios.md).

@@ -2,7 +2,7 @@
 tipo: referencia
 estado: activo
 fase: 1
-actualizado: 2026-11-04
+actualizado: 2026-11-07
 tags:
   - base-de-datos
   - referencia
@@ -11,8 +11,8 @@ tags:
 
 # Modelo de datos
 
-> [!warning] Borrador para la Fase 1
-> Este esquema se cerrará y se convertirá en migraciones Flyway en la Fase 1. Cualquier cambio debe reflejarse también en las notas de entidad y en [[Modelo de dominio]].
+> [!success] Implementado en la Fase 1
+> El esquema se aplica con `backend/src/main/resources/db/migration/V1__esquema_inicial.sql` y los datos de desarrollo con `db/dev/V2__datos_iniciales.sql`. Cualquier cambio debe reflejarse también en las notas de entidad y en [[Modelo de dominio]].
 
 ## 1. Convenciones
 
@@ -711,14 +711,14 @@ La unicidad de una solicitud pendiente por franja se valida en el servicio. Al r
 
 ## 6. Datos iniciales
 
-La migración `V2__datos_iniciales.sql` (o un `CommandLineRunner` de desarrollo) creará:
+La migración `V2__datos_iniciales.sql` (solo perfiles `dev` y `test`) crea:
 
-- Una mancomunidad de ejemplo `demo` con código `demo` y estado activo.
-- El curso escolar `2026-2027` en estado `ACTIVO` para esa mancomunidad.
-- Un centro de ejemplo.
-- Un administrador inicial con email `admin@mancomunidad.local`, contraseña temporal y pertenencia `ADMINISTRADOR` a `demo`. Puede tener además `admin_plataforma = true` en desarrollo para probar el panel. La cuenta se crea con `debe_cambiar_password = true`.
-- Un profesor de ejemplo con pertenencia `PROFESOR` a `demo`.
-- Varias asignaturas, alumnos e instrumentos para pruebas manuales.
+- Una mancomunidad de ejemplo `demo` con código `demo`, tipo `MUSICA` y estado activo.
+- El curso escolar `2026-2027` (del 2026-09-01 al 2027-06-30) en estado `ACTIVO` para esa mancomunidad.
+- Un administrador inicial con email `admin@mancomunidad.local`, contraseña temporal `Temporal1234` y pertenencia `ADMINISTRADOR` a `demo`. La cuenta se crea con `debe_cambiar_password = true` y email verificado.
+- Una segunda mancomunidad `demo-b` (`DANZA`) con su propio curso `2026-2027` activo, sin usuarios, para los tests de aislamiento entre tenants (`V3__segunda_mancomunidad_demo.sql`).
+
+El centro de ejemplo, el profesor y los datos de asignaturas, alumnos e instrumentos se añadirán cuando existan sus fases (3, 4 y 5), para no sembrar datos que todavía no se pueden gestionar desde la aplicación.
 
 > [!warning] Seguridad
 > Las credenciales de ejemplo solo existirán en el perfil `dev`. En producción, la primera mancomunidad y su administrador se crean desde el panel de plataforma, y se fuerza el cambio de contraseña. El primer `SUPERADMIN` se crea con el comando `--bootstrap-superadmin` y `APP_BOOTSTRAP_ENABLED=true`: la contraseña se lee de un fichero secreto montado o de la consola, nunca de una migración, argumento o variable visible. El comando es idempotente, audita `ALTA_SUPERADMIN` y sirve de break-glass ([[ADR-034 - Bootstrap del primer superadministrador]]).

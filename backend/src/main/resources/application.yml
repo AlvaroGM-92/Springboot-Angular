@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: mancomunidad-backend
+  profiles:
+    default: dev
+  datasource:
+    url: "${APP_DB_URL:jdbc:mysql://localhost:3306/mancomunidad?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}"
+    username: "${APP_DB_USER:mancomunidad}"
+    password: "${APP_DB_PASSWORD:mancomunidad}"
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+app:
+  tenant:
+    # Mecanismo provisional de desarrollo: la mancomunidad se indica con la
+    # cabecera X-Mancomunidad-Id. En la Fase 2 se sustituye por el JWT.
+    header-enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never

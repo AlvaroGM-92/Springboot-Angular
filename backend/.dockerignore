@@ -1,0 +1,6 @@
+target/
+.mvn/wrapper/maven-wrapper.jar.sha256
+.git/
+.gitignore
+Dockerfile
+.dockerignore

@@ -2,7 +2,7 @@
 tipo: referencia
 estado: activo
 fase: 0
-actualizado: 2026-11-04
+actualizado: 2026-11-07
 tags:
   - api
   - referencia
@@ -63,6 +63,16 @@ tags:
 - Las escrituras sensibles aceptan o exigen **`Idempotency-Key`** (16–64 caracteres `[A-Za-z0-9_-]`). El reintento con la misma clave y cuerpo devuelve la respuesta guardada; otra ruta o cuerpo responde `409` ([[ADR-033 - Idempotencia de peticiones sensibles]]).
 - Los extremos limitados responden `429` con `Retry-After` y, cuando se conoce, `X-RateLimit-Limit`, `X-RateLimit-Remaining` y `X-RateLimit-Reset` ([[ADR-032 - Rate limiting de extremos sensibles]]).
 - Los errores de idempotencia usan los códigos `CLAVE_IDEMPOTENCIA_REUTILIZADA` y `OPERACION_EN_CURSO` en el campo `code` del Problem Details.
+
+### 1.1 Endpoint provisional de desarrollo
+
+Mientras no existe autenticación, los perfiles `dev` y `test` publican:
+
+| Método | Ruta | Descripción |
+| --- | --- | --- |
+| GET | `/tenant/actual` | Devuelve `id`, `nombre`, `codigo` y `tipo` de la mancomunidad indicada en la cabecera `X-Mancomunidad-Id`. Responde `404` con `code = TENANT_NO_RESUELTO` si falta la cabecera, no es numérica o la mancomunidad no existe o está inactiva. |
+
+Solo está disponible con `app.tenant.header-enabled=true`. En producción está desactivado; la Fase 2 lo sustituye por los endpoints de autenticación y el tenant del JWT.
 
 ## 2. Autenticación
 

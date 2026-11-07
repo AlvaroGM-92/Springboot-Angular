@@ -18,9 +18,10 @@ Flyway, JWT con refresh token y Docker Compose.
 
 ## Estado actual
 
-- **Fase 0 (definición y documentación) cerrada.** No existe código de aplicación.
-- **No empezar la Fase 1 hasta que el usuario lo pida explícitamente.**
-- No crear `backend/`, `frontend/` ni `compose.yaml` por iniciativa propia.
+- **Fase 0 (definición y documentación) cerrada.**
+- **Fase 1 (entorno y esqueleto) cerrada.** Backend Spring Boot, MySQL 8.4, Flyway, `TenantContext`, frontend Angular 22 y CI/CD integrados en `main`.
+- **Fase 2 (autenticación y seguridad base) es la siguiente.** No adelantar pantallas ni módulos de negocio.
+- `main` debe estar protegida con el check `CI` obligatorio. El pipeline lo ejecuta GitHub, no el entorno local.
 
 ## La documentación es la fuente de verdad
 
@@ -36,9 +37,56 @@ decida lo contrario; entonces se actualizan las dos en el mismo cambio.
 
 ## Comandos
 
-Todavía no hay `backend/` ni `frontend/`, así que no hay comandos que ejecutar.
-Cuando existan (Fase 1), se documentarán aquí los reales: arranque, tests, lint y
-migraciones. **No inventes comandos ni crees proyectos que la fase no pida.**
+Base de datos (Docker debe estar en marcha):
+
+```bash
+docker compose up -d       # MySQL + Flyway (aplica V1 y el seed de dev)
+docker compose ps -a       # flyway debe terminar en Exited (0)
+docker compose down        # conserva el volumen
+```
+
+Backend (requiere JDK 21; el JDK del sistema es 27):
+
+```bash
+cd backend
+export JAVA_HOME=/home/alvarogm/.jdks/ms-21.0.12.1
+export PATH="$JAVA_HOME/bin:$PATH"
+./mvnw spring-boot:run     # http://localhost:8080/actuator/health
+./mvnw test                # usa MySQL 8.4 en Testcontainers
+./mvnw verify
+```
+
+Credenciales de desarrollo: `admin@mancomunidad.local` / `Temporal1234` (exige cambio de contraseña).
+
+Tenant provisional en `dev` y `test` (se sustituye por el JWT en la Fase 2):
+
+```bash
+# IDs sembrados: demo = 1, demo-b = 2 (comprobar en la base si cambian)
+curl -H 'X-Mancomunidad-Id: 1' http://localhost:8080/api/v1/tenant/actual
+```
+
+Frontend (Node 26; el backend debe estar en `localhost:8080`):
+
+```bash
+cd frontend
+npm install                # solo la primera vez
+npm start                  # http://localhost:4200, con proxy /api y /actuator
+npm run lint
+npm run format:check
+npm test -- --watch=false  # Vitest
+npm run build
+```
+
+Imágenes Docker (el backend arranca con perfil `prod`, sin seed de desarrollo):
+
+```bash
+docker build -t mancomunidad-backend:local backend
+docker build -t mancomunidad-frontend:local frontend
+```
+
+CI/CD: `.github/workflows/ci.yml` se ejecuta en `push` y PR a `main`; `cd.yml` publica imágenes en GHCR con etiquetas `v*`. El despliegue remoto aún no está conectado.
+
+**No inventes comandos ni crees proyectos que la fase no pida.**
 
 ### CI/CD (Fase 1, PEN-28)
 

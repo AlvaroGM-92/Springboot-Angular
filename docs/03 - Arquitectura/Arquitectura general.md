@@ -244,12 +244,15 @@ El pipeline no publica artefactos salvo los informes de tests; su objetivo es bl
 
 ### 11.2 Pipeline de despliegue (`cd.yml`)
 
-Se dispara manualmente o al crear una etiqueta `vX.Y.Z`. Construye y publica las imágenes Docker del backend y del frontend en el registro (GHCR) y despliega en el servidor con Docker Compose.
+Se dispara manualmente o al crear una etiqueta `vX.Y.Z`. Construye y publica las imágenes Docker del backend y del frontend en el registro (GHCR). El despliegue automático al servidor con Docker Compose se conectará cuando exista la infraestructura de staging/producción (Fase 10); hasta entonces el workflow solo publica imágenes versionadas por etiqueta y SHA.
 
 - Las **migraciones Flyway** se aplican antes de arrancar la nueva versión.
 - El despliegue es de tipo **recreate** con ventana de mantenimiento corta; si la plataforma lo permite, se puede pasar a blue/green.
 - Tras el arranque se ejecuta un **health check** (`/actuator/health`) y, si falla, se revierte a la imagen anterior.
 - El **rollback** es un redeploy de la imagen anterior. Por eso las migraciones deben ser retrocompatibles; si una no lo es, se añade una migración de reversión en el mismo cambio.
+
+> [!note] Estado en la Fase 1
+> `ci.yml` y `cd.yml` ya existen. `ci.yml` valida backend, frontend, migraciones Flyway y la construcción de ambas imágenes; `cd.yml` publica las imágenes en GHCR al crear una etiqueta `v*`. El paso de despliegue remoto queda pendiente de la infraestructura.
 
 ### 11.3 Ramas, etiquetas y entornos
 
