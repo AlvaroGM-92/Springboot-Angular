@@ -19,9 +19,9 @@ Flyway, JWT con refresh token y Docker Compose.
 ## Estado actual
 
 - **Fase 0 (definición y documentación) cerrada.**
-- **Fase 1 (entorno y esqueleto) en curso:** 1.1–1.5 implementadas (backend Spring Boot, MySQL 8.4, Flyway, `TenantContext`, frontend Angular 22 y CI/CD). Pendiente la primera ejecución del CI en GitHub y el merge a `main`.
-- El `frontend/` ya existe; no adelantar las pantallas de autenticación ni de negocio hasta que su fase lo pida.
-- `main` está protegida: no fusionar sin PR y CI verde. El pipeline lo ejecuta GitHub, no el entorno local.
+- **Fase 1 (entorno y esqueleto) cerrada.** Backend Spring Boot, MySQL 8.4, Flyway, `TenantContext`, frontend Angular 22 y CI/CD integrados en `main`.
+- **Fase 2 (autenticación y seguridad base) es la siguiente.** No adelantar pantallas ni módulos de negocio.
+- `main` debe estar protegida con el check `CI` obligatorio. El pipeline lo ejecuta GitHub, no el entorno local.
 
 ## La documentación es la fuente de verdad
 

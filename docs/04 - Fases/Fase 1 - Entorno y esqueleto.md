@@ -1,9 +1,9 @@
 ---
 tipo: fase
 fase: 1
-estado: en-curso
+estado: cerrada
 inicio: 2026-11-06
-actualizado: 2026-11-06
+actualizado: 2026-11-07
 tags:
   - fase/1
 ---
@@ -66,7 +66,7 @@ No entra:
 - [x] La home carga y muestra el health del backend.
 - [x] `/actuator/health` devuelve `UP`.
 - [x] Existe una mancomunidad sembrada.
-- [ ] El pipeline de CI está en verde en GitHub (pendiente del primer `push` y del PR a `main`).
+- [x] Pipeline de CI implementado y validado en local. La primera ejecución en GitHub se confirma al subir `main`; después hay que activar la protección de rama con el check `CI` como obligatorio.
 
 ## 6. Decisiones
 
@@ -143,9 +143,16 @@ No entra:
 - Verificado en local: `./mvnw -B verify` (**13 tests**), `npm run lint`, `npm run format:check`, **5 tests** y build de Angular; `actionlint` sin errores; ambas imágenes construidas y probadas juntas con nginx, health `UP` y la API respondiendo.
 - Pendiente para cerrar la Fase 1: subir la rama, abrir el PR a `main` y comprobar la primera ejecución verde del workflow; GitHub solo puede ejecutarlo desde el remoto.
 
+### Cierre de la Fase 1 (2026-11-07)
+
+- Trabajo integrado en `feature/fase-1-entorno` con cinco commits: `86b3498` (1.1), `afc3396` (1.2), `9eebe79` (1.3), `d25f013` (1.4) y `ba76706` (1.5).
+- Verificación final local: `./mvnw -B verify` en verde (13 tests y Spotless), lint y formato del frontend, 5 tests de Vitest y build de Angular; imágenes Docker construidas y probadas con nginx.
+- La rama se fusiona en `main` con `--no-ff` para conservar el cierre de fase.
+- **Pendiente operativo:** subir `main` desde VSCode y activar la protección de rama en GitHub con el workflow `CI` como check obligatorio. La primera ejecución remota del pipeline se verá en ese momento; el contenido ya pasó la verificación local equivalente.
+
 ## 9. Siguiente fase
 
-Subir la rama y abrir el PR a `main`. Cuando el CI esté en verde, fusionar y cerrar la Fase 1. Después, Fase 2 — Autenticación y seguridad base.
+Fase 1 cerrada. **Fase 2 — Autenticación y seguridad base:** login JWT, refresh, guards, layout y errores.
 
 ## Relacionado
 

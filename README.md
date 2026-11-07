@@ -3,7 +3,7 @@
 Aplicación web para gestionar mancomunidades de centros de enseñanza de cualquier área —música, danza, artes escénicas, idiomas, deportes u otras—: centros, profesorado, asignaturas, alumnos, instrumentos cuando el área los usa, horarios, observaciones, asistencia y preparación de clases. Preparada para alojar varias mancomunidades con identidad global de usuario y aislamiento por `mancomunidad_id`.
 
 > [!note] Estado
-> **Fase 0 cerrada.** **Fase 1 en curso:** 1.1–1.5 implementadas (backend Spring Boot 4.1.2, MySQL 8.4 con Compose, Flyway, aislamiento por tenant, frontend Angular 22 y pipelines de CI/CD). Pendiente la primera ejecución del CI en GitHub y el merge a `main`.
+> **Fases 0 y 1 cerradas.** Backend Spring Boot 4.1.2 con MySQL 8.4, Flyway y aislamiento por tenant; frontend Angular 22; CI/CD con GitHub Actions y publicación de imágenes en GHCR. La siguiente fase es la 2: autenticación y seguridad base.
 
 ## Documentación
 
@@ -100,6 +100,6 @@ cd ../frontend && npm ci && npm run lint && npm run format:check && npm test -- 
 
 ## Siguiente paso
 
-Subir la rama, abrir el PR a `main` y comprobar la primera ejecución verde del CI. Después se cierra la Fase 1.
+Al subir `main`, comprobar la primera ejecución del workflow **CI** en GitHub y activar la protección de rama con ese check como obligatorio. Después, **Fase 2 — Autenticación y seguridad base**.
 
 Las decisiones y el progreso se registran en el [diario](docs/06%20-%20Diario/Diario%20de%20cambios.md).

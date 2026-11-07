@@ -24,7 +24,7 @@ tags:
 | Fase | Nombre | Objetivo | Sub-fases | Estado |
 | --- | --- | --- | --- | --- |
 | 0 | Definición y documentación | Cerrar alcance, roles, dominio, arquitectura y sistema documental. | — | ✅ Cerrada |
-| 1 | Entorno y esqueleto | Repositorio, Spring Boot, Angular, MySQL, Flyway, health check y pipeline de CI. | 5 | 🟡 En curso (1.1–1.5 implementadas; pendiente CI en GitHub) |
+| 1 | Entorno y esqueleto | Repositorio, Spring Boot, Angular, MySQL, Flyway, health check y pipeline de CI. | 5 | ✅ Cerrada |
 | 2 | Autenticación y seguridad base | Login JWT, refresh, guards, layout y errores. | 6 | ⬜ Pendiente |
 | 3 | Usuarios y centros | CRUD administrativo de usuarios y centros. | 5 | ⬜ Pendiente |
 | 4 | Asignaturas y profesorado | CRUD de asignaturas y asignación de profesores. | — | ⬜ Pendiente |
