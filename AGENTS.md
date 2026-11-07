@@ -19,8 +19,9 @@ Flyway, JWT con refresh token y Docker Compose.
 ## Estado actual
 
 - **Fase 0 (definición y documentación) cerrada.**
-- **Fase 1 (entorno y esqueleto) en curso:** 1.1–1.4 completadas (backend Spring Boot, MySQL 8.4, Flyway, `TenantContext` y frontend Angular 22 con la home de health). Siguiente: 1.5 (pipeline de CI).
+- **Fase 1 (entorno y esqueleto) en curso:** 1.1–1.5 implementadas (backend Spring Boot, MySQL 8.4, Flyway, `TenantContext`, frontend Angular 22 y CI/CD). Pendiente la primera ejecución del CI en GitHub y el merge a `main`.
 - El `frontend/` ya existe; no adelantar las pantallas de autenticación ni de negocio hasta que su fase lo pida.
+- `main` está protegida: no fusionar sin PR y CI verde. El pipeline lo ejecuta GitHub, no el entorno local.
 
 ## La documentación es la fuente de verdad
 
@@ -70,9 +71,20 @@ Frontend (Node 26; el backend debe estar en `localhost:8080`):
 cd frontend
 npm install                # solo la primera vez
 npm start                  # http://localhost:4200, con proxy /api y /actuator
+npm run lint
+npm run format:check
 npm test -- --watch=false  # Vitest
 npm run build
 ```
+
+Imágenes Docker (el backend arranca con perfil `prod`, sin seed de desarrollo):
+
+```bash
+docker build -t mancomunidad-backend:local backend
+docker build -t mancomunidad-frontend:local frontend
+```
+
+CI/CD: `.github/workflows/ci.yml` se ejecuta en `push` y PR a `main`; `cd.yml` publica imágenes en GHCR con etiquetas `v*`. El despliegue remoto aún no está conectado.
 
 **No inventes comandos ni crees proyectos que la fase no pida.**
 

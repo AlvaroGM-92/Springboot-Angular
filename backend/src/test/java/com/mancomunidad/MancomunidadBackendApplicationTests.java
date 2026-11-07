@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 class MancomunidadBackendApplicationTests extends IntegrationTestBase {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void contextLoads() {}
 }

@@ -16,6 +16,8 @@ El servidor de desarrollo aplica `proxy.conf.json`: `/api` y `/actuator` se reen
 ## Comandos
 
 ```bash
+npm run lint                # ESLint + Angular ESLint
+npm run format:check        # Prettier
 npm test -- --watch=false   # tests con Vitest
 npm run build               # build de producción en dist/
 npm run watch               # build incremental

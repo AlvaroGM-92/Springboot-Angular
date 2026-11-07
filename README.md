@@ -3,7 +3,7 @@
 Aplicación web para gestionar mancomunidades de centros de enseñanza de cualquier área —música, danza, artes escénicas, idiomas, deportes u otras—: centros, profesorado, asignaturas, alumnos, instrumentos cuando el área los usa, horarios, observaciones, asistencia y preparación de clases. Preparada para alojar varias mancomunidades con identidad global de usuario y aislamiento por `mancomunidad_id`.
 
 > [!note] Estado
-> **Fase 0 cerrada.** **Fase 1 en curso:** 1.1–1.4 completadas (backend Spring Boot 4.1.2, MySQL 8.4 con Compose, Flyway, aislamiento por tenant y frontend Angular 22 con home de health). La siguiente sub-fase es 1.5: pipeline de CI.
+> **Fase 0 cerrada.** **Fase 1 en curso:** 1.1–1.5 implementadas (backend Spring Boot 4.1.2, MySQL 8.4 con Compose, Flyway, aislamiento por tenant, frontend Angular 22 y pipelines de CI/CD). Pendiente la primera ejecución del CI en GitHub y el merge a `main`.
 
 ## Documentación
 
@@ -86,8 +86,20 @@ Mientras no existe autenticación, `dev` resuelve el tenant con la cabecera `X-M
 curl -H 'X-Mancomunidad-Id: 1' http://localhost:8080/api/v1/tenant/actual
 ```
 
+## Integración y entrega continua
+
+- `.github/workflows/ci.yml`: en cada `push` y PR a `main` ejecuta `./mvnw -B verify`, `npm run lint`, `npm run format:check`, los tests de ambos módulos, el build de Angular, las migraciones Flyway sobre MySQL efímero y la construcción de ambas imágenes Docker.
+- `.github/workflows/cd.yml`: manual o con una etiqueta `v*`; publica las imágenes en GHCR (`mancomunidad-backend` y `mancomunidad-frontend`).
+- El despliegue remoto se conectará cuando exista la infraestructura de staging/producción.
+
+```bash
+# Equivalente local del CI
+cd backend && ./mvnw -B verify
+cd ../frontend && npm ci && npm run lint && npm run format:check && npm test -- --watch=false && npm run build
+```
+
 ## Siguiente paso
 
-Completar la **Fase 1 — Entorno y esqueleto**: pipeline de CI (1.5).
+Subir la rama, abrir el PR a `main` y comprobar la primera ejecución verde del CI. Después se cierra la Fase 1.
 
 Las decisiones y el progreso se registran en el [diario](docs/06%20-%20Diario/Diario%20de%20cambios.md).

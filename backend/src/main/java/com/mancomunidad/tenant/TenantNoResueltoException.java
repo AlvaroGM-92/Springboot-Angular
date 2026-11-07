@@ -5,8 +5,7 @@ package com.mancomunidad.tenant;
  */
 public class TenantNoResueltoException extends RuntimeException {
 
-	public TenantNoResueltoException(String mensaje) {
-		super(mensaje);
-	}
-
+    public TenantNoResueltoException(String mensaje) {
+        super(mensaje);
+    }
 }

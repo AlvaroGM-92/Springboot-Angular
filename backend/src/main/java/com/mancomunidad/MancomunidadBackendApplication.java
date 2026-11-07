@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MancomunidadBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MancomunidadBackendApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(MancomunidadBackendApplication.class, args);
+    }
 }

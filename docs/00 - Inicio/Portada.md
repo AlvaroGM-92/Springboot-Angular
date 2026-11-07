@@ -13,7 +13,7 @@ tags:
 > [!info] Documentación viva
 > Esta carpeta es la fuente de verdad del proyecto. Los requisitos, las decisiones y el progreso viven en notas enlazadas. El código se escribirá **después** de definir cada fase.
 
-**Estado actual:** Fase 0 cerrada ✅ · Fase 1 en curso 🟡 (1.1–1.4 completadas) · **Siguiente:** Fase 1.5 — pipeline de CI.
+**Estado actual:** Fase 0 cerrada ✅ · Fase 1 en curso 🟡 (1.1–1.5 implementadas; pendiente CI en GitHub) · **Siguiente:** subir la rama y abrir el PR a `main`.
 
 ## Ruta de lectura
 
@@ -42,7 +42,7 @@ tags:
 | Fase | Estado |
 | --- | --- |
 | 0 — Definición y documentación | ✅ Cerrada |
-| 1 — Entorno y esqueleto | 🟡 En curso (1.1–1.4 completadas) |
+| 1 — Entorno y esqueleto | 🟡 En curso (1.1–1.5 implementadas; pendiente CI en GitHub) |
 | 2 — Autenticación y seguridad base | ⬜ Pendiente |
 | 3 — Usuarios y centros | ⬜ Pendiente |
 | 4 — Asignaturas y profesorado | ⬜ Pendiente |

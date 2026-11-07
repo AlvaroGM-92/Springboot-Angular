@@ -1,7 +1,6 @@
 package com.mancomunidad.tenant;
 
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.Optional;
 
 /**
@@ -13,6 +12,5 @@ import java.util.Optional;
  */
 public interface TenantResolver {
 
-	Optional<Long> resolver(HttpServletRequest request);
-
+    Optional<Long> resolver(HttpServletRequest request);
 }

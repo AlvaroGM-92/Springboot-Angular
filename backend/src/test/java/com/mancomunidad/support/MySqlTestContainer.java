@@ -8,17 +8,15 @@ import org.testcontainers.mysql.MySQLContainer;
  */
 public final class MySqlTestContainer {
 
-	private static final MySQLContainer INSTANCE = new MySQLContainer("mysql:8.4");
+    private static final MySQLContainer INSTANCE = new MySQLContainer("mysql:8.4");
 
-	static {
-		INSTANCE.start();
-	}
+    static {
+        INSTANCE.start();
+    }
 
-	private MySqlTestContainer() {
-	}
+    private MySqlTestContainer() {}
 
-	public static MySQLContainer get() {
-		return INSTANCE;
-	}
-
+    public static MySQLContainer get() {
+        return INSTANCE;
+    }
 }

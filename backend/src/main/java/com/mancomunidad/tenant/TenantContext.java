@@ -11,33 +11,31 @@ import java.util.Optional;
  */
 public final class TenantContext {
 
-	private static final ThreadLocal<Long> MANCOMUNIDAD_ACTUAL = new ThreadLocal<>();
+    private static final ThreadLocal<Long> MANCOMUNIDAD_ACTUAL = new ThreadLocal<>();
 
-	private TenantContext() {
-	}
+    private TenantContext() {}
 
-	public static void set(Long mancomunidadId) {
-		MANCOMUNIDAD_ACTUAL.set(mancomunidadId);
-	}
+    public static void set(Long mancomunidadId) {
+        MANCOMUNIDAD_ACTUAL.set(mancomunidadId);
+    }
 
-	public static Optional<Long> get() {
-		return Optional.ofNullable(MANCOMUNIDAD_ACTUAL.get());
-	}
+    public static Optional<Long> get() {
+        return Optional.ofNullable(MANCOMUNIDAD_ACTUAL.get());
+    }
 
-	public static boolean hayTenant() {
-		return MANCOMUNIDAD_ACTUAL.get() != null;
-	}
+    public static boolean hayTenant() {
+        return MANCOMUNIDAD_ACTUAL.get() != null;
+    }
 
-	public static Long require() {
-		Long mancomunidadId = MANCOMUNIDAD_ACTUAL.get();
-		if (mancomunidadId == null) {
-			throw new TenantNoResueltoException("No hay una mancomunidad activa en la petición");
-		}
-		return mancomunidadId;
-	}
+    public static Long require() {
+        Long mancomunidadId = MANCOMUNIDAD_ACTUAL.get();
+        if (mancomunidadId == null) {
+            throw new TenantNoResueltoException("No hay una mancomunidad activa en la petición");
+        }
+        return mancomunidadId;
+    }
 
-	public static void clear() {
-		MANCOMUNIDAD_ACTUAL.remove();
-	}
-
+    public static void clear() {
+        MANCOMUNIDAD_ACTUAL.remove();
+    }
 }

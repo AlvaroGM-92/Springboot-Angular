@@ -17,15 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @ConditionalOnProperty(prefix = "app.tenant", name = "header-enabled", havingValue = "true")
 public class TenantController {
 
-	private final MancomunidadActualService service;
+    private final MancomunidadActualService service;
 
-	public TenantController(MancomunidadActualService service) {
-		this.service = service;
-	}
+    public TenantController(MancomunidadActualService service) {
+        this.service = service;
+    }
 
-	@GetMapping("/actual")
-	public MancomunidadActual actual() {
-		return service.obtenerActual();
-	}
-
+    @GetMapping("/actual")
+    public MancomunidadActual actual() {
+        return service.obtenerActual();
+    }
 }

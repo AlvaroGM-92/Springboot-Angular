@@ -1,10 +1,9 @@
 package com.mancomunidad.tenant;
 
+import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Consulta los datos de la mancomunidad activa del {@link TenantContext}.
@@ -16,27 +15,24 @@ import java.util.List;
 @Service
 public class MancomunidadActualService {
 
-	private static final RowMapper<MancomunidadActual> MAPPER = (rs, fila) -> new MancomunidadActual(
-		rs.getLong("id"),
-		rs.getString("nombre"),
-		rs.getString("codigo"),
-		rs.getString("tipo"));
+    private static final RowMapper<MancomunidadActual> MAPPER = (rs, fila) -> new MancomunidadActual(
+            rs.getLong("id"), rs.getString("nombre"), rs.getString("codigo"), rs.getString("tipo"));
 
-	private final JdbcTemplate jdbc;
+    private final JdbcTemplate jdbc;
 
-	public MancomunidadActualService(JdbcTemplate jdbc) {
-		this.jdbc = jdbc;
-	}
+    public MancomunidadActualService(JdbcTemplate jdbc) {
+        this.jdbc = jdbc;
+    }
 
-	public MancomunidadActual obtenerActual() {
-		Long mancomunidadId = TenantContext.require();
-		List<MancomunidadActual> encontradas = jdbc.query(
-			"SELECT id, nombre, codigo, tipo FROM mancomunidad WHERE id = ? AND activo = TRUE",
-			MAPPER, mancomunidadId);
-		return encontradas.stream()
-			.findFirst()
-			.orElseThrow(() -> new TenantNoResueltoException(
-				"La mancomunidad activa no existe o está desactivada"));
-	}
-
+    public MancomunidadActual obtenerActual() {
+        Long mancomunidadId = TenantContext.require();
+        List<MancomunidadActual> encontradas = jdbc.query(
+                "SELECT id, nombre, codigo, tipo FROM mancomunidad WHERE id = ? AND activo = TRUE",
+                MAPPER,
+                mancomunidadId);
+        return encontradas.stream()
+                .findFirst()
+                .orElseThrow(
+                        () -> new TenantNoResueltoException("La mancomunidad activa no existe o está desactivada"));
+    }
 }

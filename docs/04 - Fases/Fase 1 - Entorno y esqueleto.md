@@ -48,7 +48,7 @@ No entra:
 - [x] Backend: `TenantContext` y filtro base de aislamiento.
 - [x] Frontend: Angular 22 con proxy a `/api` y home con el health.
 - [x] Documentación: README de arranque en tres comandos.
-- [ ] CI/CD: pipeline de build, tests, lint y Flyway.
+- [x] CI/CD: pipeline de build, tests, lint y Flyway.
 
 ## 4. Sub-fases
 
@@ -58,15 +58,15 @@ No entra:
 | 1.2 | `compose.yaml` con MySQL 8.4, Flyway, esquema base y seed de mancomunidad de tipo `MUSICA`, curso `2026-2027` y administrador. | `docker compose up -d` levanta MySQL y Flyway aplica las migraciones sin errores. | ✅ Completada |
 | 1.3 | `TenantContext`, resolución de la mancomunidad activa y filtro base de aislamiento. | Con dos mancomunidades sembradas, una consulta sin tenant activo no devuelve datos. | ✅ Completada |
 | 1.4 | Angular 22 con proxy a `/api` (la API vive en `/api/v1`), home que consume el health y README de arranque. | `npm start` sirve la home, muestra el estado del backend y el README arranca en tres comandos. | ✅ Completada |
-| 1.5 | Pipeline de GitHub Actions: build y tests de backend y frontend, lint, validación de migraciones Flyway y publicación de imágenes Docker. | Un PR a `main` ejecuta el pipeline en verde y bloquea el merge si falla. | ⬜ Pendiente |
+| 1.5 | Pipeline de GitHub Actions: build y tests de backend y frontend, lint, validación de migraciones Flyway y publicación de imágenes Docker. | Un PR a `main` ejecuta el pipeline en verde y bloquea el merge si falla. | ✅ Completada (pendiente primera ejecución en GitHub) |
 
 ## 5. Criterios de aceptación
 
-- [ ] `docker compose up -d`, `./mvnw spring-boot:run` y `npm start` funcionan.
-- [ ] La home carga y muestra el health del backend.
-- [ ] `/actuator/health` devuelve `UP`.
-- [ ] Existe una mancomunidad sembrada.
-- [ ] El pipeline de CI está en verde.
+- [x] `docker compose up -d`, `./mvnw spring-boot:run` y `npm start` funcionan.
+- [x] La home carga y muestra el health del backend.
+- [x] `/actuator/health` devuelve `UP`.
+- [x] Existe una mancomunidad sembrada.
+- [ ] El pipeline de CI está en verde en GitHub (pendiente del primer `push` y del PR a `main`).
 
 ## 6. Decisiones
 
@@ -129,9 +129,23 @@ No entra:
 - Verificado con backend y frontend en marcha: `http://localhost:4200` sirve la home, `/actuator/health` responde `UP` a través del proxy y `/api/v1/tenant/actual` devuelve la mancomunidad de la cabecera.
 - `README.md` raíz con el arranque en tres comandos y `frontend/README.md` con los comandos del proyecto.
 
+### 1.5 — CI/CD y publicación de imágenes (2026-11-07)
+
+- `.github/workflows/ci.yml`, disparado en `push` y `pull request` a `main`:
+  - **Backend:** JDK 21, `./mvnw -B verify` (compilación, tests con Testcontainers y Spotless) y publicación de los informes de tests.
+  - **Frontend:** Node 26, `npm ci`, `npm run lint`, `npm run format:check`, `npm test -- --watch=false` y `npm run build`.
+  - **Flyway:** MySQL 8.4 efímero y Flyway 11 aplican todas las migraciones; después `validate` comprueba que no queda ninguna pendiente.
+  - **Docker:** buildx construye las imágenes de backend y frontend sin publicarlas.
+- `.github/workflows/cd.yml`, manual o al crear una etiqueta `v*`: construye y publica ambas imágenes en GHCR con etiquetas de versión y SHA.
+- `backend/Dockerfile`: build multi-stage con Maven Wrapper y runtime JRE 21 sin root; el contenedor arranca con perfil `prod` para no cargar el seed de desarrollo.
+- `frontend/Dockerfile`: build con Node 26 y runtime nginx 1.29; `nginx.conf` sirve la SPA con fallback a `index.html` y reenvía `/api` y `/actuator` al servicio `backend:8080`.
+- `.dockerignore` en ambos módulos y formato unificado: Spotless con Palantir Java Format en el backend y Prettier en el frontend.
+- Verificado en local: `./mvnw -B verify` (**13 tests**), `npm run lint`, `npm run format:check`, **5 tests** y build de Angular; `actionlint` sin errores; ambas imágenes construidas y probadas juntas con nginx, health `UP` y la API respondiendo.
+- Pendiente para cerrar la Fase 1: subir la rama, abrir el PR a `main` y comprobar la primera ejecución verde del workflow; GitHub solo puede ejecutarlo desde el remoto.
+
 ## 9. Siguiente fase
 
-Completar 1.5 y cerrar la Fase 1. Después, Fase 2 — Autenticación y seguridad base.
+Subir la rama y abrir el PR a `main`. Cuando el CI esté en verde, fusionar y cerrar la Fase 1. Después, Fase 2 — Autenticación y seguridad base.
 
 ## Relacionado
 
