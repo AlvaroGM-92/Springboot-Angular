@@ -2,7 +2,7 @@
 tipo: moc
 estado: activo
 fase: 0
-actualizado: 2026-11-06
+actualizado: 2026-11-07
 tags:
   - moc
   - proyecto
@@ -13,7 +13,7 @@ tags:
 > [!info] Documentación viva
 > Esta carpeta es la fuente de verdad del proyecto. Los requisitos, las decisiones y el progreso viven en notas enlazadas. El código se escribirá **después** de definir cada fase.
 
-**Estado actual:** Fase 0 cerrada ✅ · Fase 1 en curso 🟡 (1.1 y 1.2 completadas) · **Siguiente:** Fase 1.3 — TenantContext y filtro de aislamiento.
+**Estado actual:** Fase 0 cerrada ✅ · Fase 1 en curso 🟡 (1.1–1.3 completadas) · **Siguiente:** Fase 1.4 — Angular, proxy `/api` y home con el health.
 
 ## Ruta de lectura
 
@@ -34,7 +34,7 @@ tags:
 | **Decisiones** | [[ADR-001 - Stack tecnológico]] · [[ADR-002 - Base de datos MySQL y Flyway]] · [[ADR-003 - JWT con refresh token]] · [[ADR-004 - Horario gestionado por el profesor]] · [[ADR-005 - Asistencia por sesión y lista masiva]] · [[ADR-006 - Documentación en Obsidian]] · [[ADR-007 - Historial de cambios de asistencia]] · [[ADR-008 - Curso escolar como entidad]] · [[ADR-009 - Multi-tenant con mancomunidad e identidad global]] · [[ADR-010 - Control horario diferido y PWA]] · [[ADR-011 - Recuperación de contraseña y correo transaccional]] · [[ADR-012 - Soporte de cuentas del superadministrador]] · [[ADR-013 - Generación automática de sesiones desde el horario]] · [[ADR-014 - Bloqueo temporal de cuentas por intentos fallidos]] · [[ADR-015 - Tipos de enseñanza y módulo de instrumentos opcional]] · [[ADR-016 - Horario editable por profesor y administrador]] · [[ADR-017 - Cancelación de sesiones y días no lectivos]] · [[ADR-018 - Curso escolar en las observaciones]] · [[ADR-019 - Resumen de asistencia y purga anonimizada]] · [[ADR-020 - Borrado de franjas y conservación de sesiones]] · [[ADR-021 - Validación de conflictos de alumno]] · [[ADR-022 - Conflictos de profesor entre mancomunidades]] · [[ADR-023 - Copia de horario al curso siguiente]] · [[ADR-024 - Cierre y reapertura de curso escolar]] · [[ADR-025 - Sustituciones y cambio de titular]] · [[ADR-026 - Baja de alumno a mitad de curso]] · [[ADR-027 - MFA y riesgo aceptado del superadministrador]] · [[ADR-028 - Verificación y cambio de email]] · [[ADR-029 - Claves JWT, rotación y secretos]] · [[ADR-030 - Detección de reutilización de refresh tokens]] · [[ADR-031 - Límite de sesiones concurrentes y cierre global]] · [[ADR-032 - Rate limiting de extremos sensibles]] · [[ADR-033 - Idempotencia de peticiones sensibles]] · [[ADR-034 - Bootstrap del primer superadministrador]] · [[ADR-035 - Gestión de la clave de cifrado de copias]] |
 | **Planificación** | [[Roadmap]] · [[Fase 0 - Definición y documentación]] · [[Fase 1 - Entorno y esqueleto]] · [[Lienzos de fases]] |
 | **Referencia** | [[Trazabilidad]] · [[Enumeraciones]] · [[Modelo de datos]] · [[API REST]] · [[Ejemplos de API]] · [[Convenciones]] · [[Copias de seguridad y exportación]] |
-| **Seguimiento** | [[Diario de cambios]] · [[2026-10-27]] · [[2026-10-28]] · [[2026-10-29]] · [[2026-11-02]] · [[2026-11-03]] · [[2026-11-04]] · [[2026-11-06]] |
+| **Seguimiento** | [[Diario de cambios]] · [[2026-10-27]] · [[2026-10-28]] · [[2026-10-29]] · [[2026-11-02]] · [[2026-11-03]] · [[2026-11-04]] · [[2026-11-06]] · [[2026-11-07]] |
 | **Plantillas** | [[Plantilla - Fase]] · [[Plantilla - Entidad]] · [[Plantilla - ADR]] · [[Plantilla - Sesión de diario]] |
 
 ## Estado de las fases
@@ -42,7 +42,7 @@ tags:
 | Fase | Estado |
 | --- | --- |
 | 0 — Definición y documentación | ✅ Cerrada |
-| 1 — Entorno y esqueleto | 🟡 En curso (1.1 y 1.2 completadas) |
+| 1 — Entorno y esqueleto | 🟡 En curso (1.1–1.3 completadas) |
 | 2 — Autenticación y seguridad base | ⬜ Pendiente |
 | 3 — Usuarios y centros | ⬜ Pendiente |
 | 4 — Asignaturas y profesorado | ⬜ Pendiente |

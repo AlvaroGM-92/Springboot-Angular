@@ -17,14 +17,21 @@ class MigracionesTests extends IntegrationTestBase {
 	@Test
 	void debeAplicarElEsquemaYLosDatosDeDesarrollo() {
 		var migraciones = jdbc.queryForList(
-			"SELECT version, success FROM flyway_schema_history WHERE version IN ('1', '2') ORDER BY installed_rank");
+			"SELECT version, success FROM flyway_schema_history WHERE version IN ('1', '2', '3') ORDER BY installed_rank");
 
-		assertThat(migraciones).hasSize(2);
+		assertThat(migraciones).hasSize(3);
 		assertThat(migraciones).allSatisfy(fila -> assertThat(fila.get("success")).isEqualTo(true));
 
 		var tipo = jdbc.queryForObject(
 			"SELECT tipo FROM mancomunidad WHERE codigo = 'demo'", String.class);
 		assertThat(tipo).isEqualTo("MUSICA");
+
+		assertThat(jdbc.queryForObject(
+			"SELECT COUNT(*) FROM mancomunidad WHERE codigo IN ('demo', 'demo-b')", Integer.class))
+			.isEqualTo(2);
+		assertThat(jdbc.queryForObject(
+			"SELECT tipo FROM mancomunidad WHERE codigo = 'demo-b'", String.class))
+			.isEqualTo("DANZA");
 
 		var curso = jdbc.queryForMap(
 			"SELECT c.codigo, c.estado, c.fecha_inicio, c.fecha_fin FROM curso_escolar c "
@@ -47,13 +54,15 @@ class MigracionesTests extends IntegrationTestBase {
 
 	@Test
 	void debePermitirSoloUnCursoActivoPorMancomunidad() {
-		var mancomunidadId = jdbc.queryForObject(
-			"SELECT id FROM mancomunidad WHERE codigo = 'demo'", Long.class);
+		for (String codigo : new String[] { "demo", "demo-b" }) {
+			var mancomunidadId = jdbc.queryForObject(
+				"SELECT id FROM mancomunidad WHERE codigo = ?", Long.class, codigo);
 
-		assertThat(mancomunidadId).isNotNull();
-		assertThat(jdbc.queryForObject(
-			"SELECT COUNT(*) FROM curso_escolar WHERE mancomunidad_id = ? AND estado = 'ACTIVO'",
-			Integer.class, mancomunidadId)).isEqualTo(1);
+			assertThat(mancomunidadId).as(codigo).isNotNull();
+			assertThat(jdbc.queryForObject(
+				"SELECT COUNT(*) FROM curso_escolar WHERE mancomunidad_id = ? AND estado = 'ACTIVO'",
+				Integer.class, mancomunidadId)).as(codigo).isEqualTo(1);
+		}
 	}
 
 }

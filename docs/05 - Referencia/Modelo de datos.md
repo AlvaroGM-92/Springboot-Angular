@@ -2,7 +2,7 @@
 tipo: referencia
 estado: activo
 fase: 1
-actualizado: 2026-11-06
+actualizado: 2026-11-07
 tags:
   - base-de-datos
   - referencia
@@ -716,6 +716,7 @@ La migración `V2__datos_iniciales.sql` (solo perfiles `dev` y `test`) crea:
 - Una mancomunidad de ejemplo `demo` con código `demo`, tipo `MUSICA` y estado activo.
 - El curso escolar `2026-2027` (del 2026-09-01 al 2027-06-30) en estado `ACTIVO` para esa mancomunidad.
 - Un administrador inicial con email `admin@mancomunidad.local`, contraseña temporal `Temporal1234` y pertenencia `ADMINISTRADOR` a `demo`. La cuenta se crea con `debe_cambiar_password = true` y email verificado.
+- Una segunda mancomunidad `demo-b` (`DANZA`) con su propio curso `2026-2027` activo, sin usuarios, para los tests de aislamiento entre tenants (`V3__segunda_mancomunidad_demo.sql`).
 
 El centro de ejemplo, el profesor y los datos de asignaturas, alumnos e instrumentos se añadirán cuando existan sus fases (3, 4 y 5), para no sembrar datos que todavía no se pueden gestionar desde la aplicación.
 

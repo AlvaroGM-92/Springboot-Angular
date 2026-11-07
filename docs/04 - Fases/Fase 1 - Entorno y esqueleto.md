@@ -45,7 +45,7 @@ No entra:
 - [x] Base de datos: `compose.yaml` con MySQL 8.4, volumen persistente y servicio Flyway.
 - [x] Base de datos: migración inicial y seed de desarrollo.
 - [ ] Backend: Spring Security (Fase 2).
-- [ ] Backend: `TenantContext` y filtro base de aislamiento.
+- [x] Backend: `TenantContext` y filtro base de aislamiento.
 - [ ] Frontend: Angular 22 con proxy a `/api` y home con el health.
 - [ ] Documentación: README de arranque en tres comandos.
 - [ ] CI/CD: pipeline de build, tests, lint y Flyway.
@@ -56,7 +56,7 @@ No entra:
 | --- | --- | --- | --- |
 | 1.1 | Esqueleto de backend con Spring Initializr (Web, Actuator), perfiles `dev` y `test` y `/actuator/health`. | `./mvnw spring-boot:run` arranca y `/actuator/health` devuelve `UP` sin base de datos. | ✅ Completada |
 | 1.2 | `compose.yaml` con MySQL 8.4, Flyway, esquema base y seed de mancomunidad de tipo `MUSICA`, curso `2026-2027` y administrador. | `docker compose up -d` levanta MySQL y Flyway aplica las migraciones sin errores. | ✅ Completada |
-| 1.3 | `TenantContext`, resolución de la mancomunidad activa y filtro base de aislamiento. | Con dos mancomunidades sembradas, una consulta sin tenant activo no devuelve datos. | ⬜ Pendiente |
+| 1.3 | `TenantContext`, resolución de la mancomunidad activa y filtro base de aislamiento. | Con dos mancomunidades sembradas, una consulta sin tenant activo no devuelve datos. | ✅ Completada |
 | 1.4 | Angular 22 con proxy a `/api` (la API vive en `/api/v1`), home que consume el health y README de arranque. | `npm start` sirve la home, muestra el estado del backend y el README arranca en tres comandos. | ⬜ Pendiente |
 | 1.5 | Pipeline de GitHub Actions: build y tests de backend y frontend, lint, validación de migraciones Flyway y publicación de imágenes Docker. | Un PR a `main` ejecuta el pipeline en verde y bloquea el merge si falla. | ⬜ Pendiente |
 
@@ -106,9 +106,20 @@ No entra:
 - Tests de integración con MySQL 8.4 en Testcontainers (`MigracionesTests`, `HealthEndpointTests` y contexto): **4 tests en verde**.
 - Verificado: `docker compose up -d` deja MySQL en `healthy`, Flyway termina con `Exited (0)` y el esquema en la versión 2; `./mvnw spring-boot:run` responde `{"status":"UP"}` con la base de datos conectada.
 
+### 1.3 — TenantContext y aislamiento base (2026-11-07)
+
+- `com.mancomunidad.tenant` con `TenantContext` (contexto por hilo de la mancomunidad activa), `TenantResolver`, `HeaderTenantResolver`, `TenantFilter`, `MancomunidadActualService`, `MancomunidadActual`, `TenantController` y `TenantExceptionHandler`.
+- Mecanismo provisional: la mancomunidad se indica con la cabecera `X-Mancomunidad-Id`. Solo se activa con `app.tenant.header-enabled=true`, que está en `dev` y `test`; en producción queda desactivado hasta que la Fase 2 lo sustituya por el JWT.
+- La cabecera se valida contra la base de datos: la mancomunidad debe existir y estar activa. Un valor ausente, no numérico o inexistente produce `404` con Problem Details y `code = TENANT_NO_RESUELTO`.
+- `GET /api/v1/tenant/actual` devuelve `id`, `nombre`, `codigo` y `tipo` de la mancomunidad activa; solo existe mientras el mecanismo por cabecera está activo.
+- `TenantFilter` limpia el contexto antes y después de cada petición a `/api/`; ningún controlador acepta el `mancomunidadId` desde el cuerpo.
+- `V3__segunda_mancomunidad_demo.sql` en `db/dev`: mancomunidad `demo-b` (`DANZA`) con su propio curso `2026-2027` activo, sin usuarios, para detectar cruces entre tenants.
+- Tests: `TenantContextTests` (contexto y limpieza) y `TenantEndpointTests` (cabecera válida, dos tenants en peticiones seguidas, sin cabecera, inexistente y no numérica). **13 tests en verde**.
+- Verificado: `docker compose up -d` deja el esquema en la versión 3 con `demo` y `demo-b`; `GET /api/v1/tenant/actual` con la cabecera correcta responde `200` y sin ella `404`.
+
 ## 9. Siguiente fase
 
-Completar 1.3–1.5 y cerrar la Fase 1. Después, Fase 2 — Autenticación y seguridad base.
+Completar 1.4 y 1.5 y cerrar la Fase 1. Después, Fase 2 — Autenticación y seguridad base.
 
 ## Relacionado
 

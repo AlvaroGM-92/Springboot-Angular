@@ -3,7 +3,7 @@
 Aplicación web para gestionar mancomunidades de centros de enseñanza de cualquier área —música, danza, artes escénicas, idiomas, deportes u otras—: centros, profesorado, asignaturas, alumnos, instrumentos cuando el área los usa, horarios, observaciones, asistencia y preparación de clases. Preparada para alojar varias mancomunidades con identidad global de usuario y aislamiento por `mancomunidad_id`.
 
 > [!note] Estado
-> **Fase 0 cerrada.** **Fase 1 en curso:** 1.1 y 1.2 completadas (backend Spring Boot 4.1.2, MySQL 8.4 con Compose, Flyway y datos de desarrollo). La siguiente sub-fase es 1.3: `TenantContext` y filtro de aislamiento.
+> **Fase 0 cerrada.** **Fase 1 en curso:** 1.1–1.3 completadas (backend Spring Boot 4.1.2, MySQL 8.4 con Compose, Flyway, datos de desarrollo y aislamiento por tenant). La siguiente sub-fase es 1.4: Angular con proxy `/api` y home con el health.
 
 ## Documentación
 
@@ -73,8 +73,14 @@ La configuración local se puede ajustar copiando `.env.example` a `.env`.
 
 **Credenciales de desarrollo:** `admin@mancomunidad.local` / `Temporal1234`. La cuenta exige cambiar la contraseña al entrar. Solo se siembran con el perfil `dev`.
 
+Mientras no existe autenticación, `dev` resuelve el tenant con la cabecera `X-Mancomunidad-Id` (IDs sembrados: `demo = 1`, `demo-b = 2`):
+
+```bash
+curl -H 'X-Mancomunidad-Id: 1' http://localhost:8080/api/v1/tenant/actual
+```
+
 ## Siguiente paso
 
-Completar la **Fase 1 — Entorno y esqueleto**: aislamiento por tenant (1.3), frontend Angular (1.4) y pipeline de CI (1.5).
+Completar la **Fase 1 — Entorno y esqueleto**: frontend Angular (1.4) y pipeline de CI (1.5).
 
 Las decisiones y el progreso se registran en el [diario](docs/06%20-%20Diario/Diario%20de%20cambios.md).

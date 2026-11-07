@@ -19,7 +19,7 @@ Flyway, JWT con refresh token y Docker Compose.
 ## Estado actual
 
 - **Fase 0 (definición y documentación) cerrada.**
-- **Fase 1 (entorno y esqueleto) en curso:** 1.1 y 1.2 completadas (backend Spring Boot, MySQL 8.4, Flyway y seed). Siguiente: 1.3 (`TenantContext` y filtro de aislamiento).
+- **Fase 1 (entorno y esqueleto) en curso:** 1.1–1.3 completadas (backend Spring Boot, MySQL 8.4, Flyway, seed y `TenantContext`). Siguiente: 1.4 (Angular con proxy `/api` y home con el health).
 - No adelantar sub-fases ni crear `frontend/` hasta que la sub-fase 1.4 lo pida.
 
 ## La documentación es la fuente de verdad
@@ -58,6 +58,13 @@ export PATH="$JAVA_HOME/bin:$PATH"
 ```
 
 Credenciales de desarrollo: `admin@mancomunidad.local` / `Temporal1234` (exige cambio de contraseña).
+
+Tenant provisional en `dev` y `test` (se sustituye por el JWT en la Fase 2):
+
+```bash
+# IDs sembrados: demo = 1, demo-b = 2 (comprobar en la base si cambian)
+curl -H 'X-Mancomunidad-Id: 1' http://localhost:8080/api/v1/tenant/actual
+```
 
 Frontend todavía no existe; se añadirá en la sub-fase 1.4.
 **No inventes comandos ni crees proyectos que la fase no pida.**

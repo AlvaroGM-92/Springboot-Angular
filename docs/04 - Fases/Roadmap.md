@@ -24,7 +24,7 @@ tags:
 | Fase | Nombre | Objetivo | Sub-fases | Estado |
 | --- | --- | --- | --- | --- |
 | 0 | Definición y documentación | Cerrar alcance, roles, dominio, arquitectura y sistema documental. | — | ✅ Cerrada |
-| 1 | Entorno y esqueleto | Repositorio, Spring Boot, Angular, MySQL, Flyway, health check y pipeline de CI. | 5 | 🟡 En curso (1.1 y 1.2 completadas) |
+| 1 | Entorno y esqueleto | Repositorio, Spring Boot, Angular, MySQL, Flyway, health check y pipeline de CI. | 5 | 🟡 En curso (1.1–1.3 completadas) |
 | 2 | Autenticación y seguridad base | Login JWT, refresh, guards, layout y errores. | 6 | ⬜ Pendiente |
 | 3 | Usuarios y centros | CRUD administrativo de usuarios y centros. | 5 | ⬜ Pendiente |
 | 4 | Asignaturas y profesorado | CRUD de asignaturas y asignación de profesores. | — | ⬜ Pendiente |
@@ -88,7 +88,7 @@ flowchart LR
 | --- | --- | --- |
 | 1.1 ✅ | Esqueleto de backend con Spring Initializr (Web, Actuator), perfiles `dev` y `test` y `/actuator/health`. | `./mvnw spring-boot:run` arranca y `/actuator/health` devuelve `UP` sin base de datos. |
 | 1.2 ✅ | `compose.yaml` con MySQL 8.4, Flyway, esquema base y seed de mancomunidad de tipo `MUSICA`, curso `2026-2027` y administrador. | `docker compose up -d` levanta MySQL y Flyway aplica las migraciones sin errores. |
-| 1.3 | `TenantContext`, resolución de la mancomunidad activa y filtro base de aislamiento. | Con dos mancomunidades sembradas, una consulta sin tenant activo no devuelve datos. |
+| 1.3 ✅ | `TenantContext`, resolución de la mancomunidad activa y filtro base de aislamiento. | Con dos mancomunidades sembradas, una consulta sin tenant activo no devuelve datos. |
 | 1.4 | Angular 22 con proxy a `/api` (la API vive en `/api/v1`), home que consume el health y README de arranque. | `npm start` sirve la home, muestra el estado del backend y el README arranca en tres comandos. |
 | 1.5 | Pipeline de GitHub Actions: build y tests de backend y frontend, lint, validación de migraciones Flyway y publicación de imágenes Docker. | Un PR a `main` ejecuta el pipeline en verde y bloquea el merge si falla. |
 
