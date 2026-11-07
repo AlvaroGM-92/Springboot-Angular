@@ -3,7 +3,7 @@
 Aplicación web para gestionar mancomunidades de centros de enseñanza de cualquier área —música, danza, artes escénicas, idiomas, deportes u otras—: centros, profesorado, asignaturas, alumnos, instrumentos cuando el área los usa, horarios, observaciones, asistencia y preparación de clases. Preparada para alojar varias mancomunidades con identidad global de usuario y aislamiento por `mancomunidad_id`.
 
 > [!note] Estado
-> **Fase 0 cerrada.** **Fase 1 en curso:** 1.1–1.3 completadas (backend Spring Boot 4.1.2, MySQL 8.4 con Compose, Flyway, datos de desarrollo y aislamiento por tenant). La siguiente sub-fase es 1.4: Angular con proxy `/api` y home con el health.
+> **Fase 0 cerrada.** **Fase 1 en curso:** 1.1–1.4 completadas (backend Spring Boot 4.1.2, MySQL 8.4 con Compose, Flyway, aislamiento por tenant y frontend Angular 22 con home de health). La siguiente sub-fase es 1.5: pipeline de CI.
 
 ## Documentación
 
@@ -54,20 +54,27 @@ SpringbootAngular/
 
 ## Arranque en local
 
-Necesitas Docker y JDK 21 (el JDK del sistema es 27, así que hay que fijar `JAVA_HOME`).
+Necesitas Docker, JDK 21 y Node 26. El JDK del sistema es 27, así que hay que fijar `JAVA_HOME`.
+
+**Tres comandos, en tres terminales:**
 
 ```bash
 # 1. Base de datos y migraciones (MySQL 8.4 + Flyway)
 docker compose up -d
-docker compose ps -a          # mancomunidad-flyway debe terminar en Exited (0)
 
-# 2. Backend
+# 2. Backend (http://localhost:8080)
 cd backend
 export JAVA_HOME=/home/alvarogm/.jdks/ms-21.0.12.1
 export PATH="$JAVA_HOME/bin:$PATH"
 ./mvnw spring-boot:run
-curl http://localhost:8080/actuator/health
+
+# 3. Frontend (http://localhost:4200)
+cd frontend
+npm install        # solo la primera vez
+npm start
 ```
+
+Abre `http://localhost:4200`: la home muestra si el backend está disponible. El proxy de Angular reenvía `/api` y `/actuator` al backend, así que no hay CORS en desarrollo.
 
 La configuración local se puede ajustar copiando `.env.example` a `.env`.
 
@@ -81,6 +88,6 @@ curl -H 'X-Mancomunidad-Id: 1' http://localhost:8080/api/v1/tenant/actual
 
 ## Siguiente paso
 
-Completar la **Fase 1 — Entorno y esqueleto**: frontend Angular (1.4) y pipeline de CI (1.5).
+Completar la **Fase 1 — Entorno y esqueleto**: pipeline de CI (1.5).
 
 Las decisiones y el progreso se registran en el [diario](docs/06%20-%20Diario/Diario%20de%20cambios.md).

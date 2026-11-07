@@ -19,8 +19,8 @@ Flyway, JWT con refresh token y Docker Compose.
 ## Estado actual
 
 - **Fase 0 (definición y documentación) cerrada.**
-- **Fase 1 (entorno y esqueleto) en curso:** 1.1–1.3 completadas (backend Spring Boot, MySQL 8.4, Flyway, seed y `TenantContext`). Siguiente: 1.4 (Angular con proxy `/api` y home con el health).
-- No adelantar sub-fases ni crear `frontend/` hasta que la sub-fase 1.4 lo pida.
+- **Fase 1 (entorno y esqueleto) en curso:** 1.1–1.4 completadas (backend Spring Boot, MySQL 8.4, Flyway, `TenantContext` y frontend Angular 22 con la home de health). Siguiente: 1.5 (pipeline de CI).
+- El `frontend/` ya existe; no adelantar las pantallas de autenticación ni de negocio hasta que su fase lo pida.
 
 ## La documentación es la fuente de verdad
 
@@ -35,8 +35,6 @@ Si el código y la documentación discrepan, manda la documentación hasta que s
 decida lo contrario; entonces se actualizan las dos en el mismo cambio.
 
 ## Comandos
-
-Backend (requiere JDK 21; el JDK del sistema es 27):
 
 Base de datos (Docker debe estar en marcha):
 
@@ -66,7 +64,16 @@ Tenant provisional en `dev` y `test` (se sustituye por el JWT en la Fase 2):
 curl -H 'X-Mancomunidad-Id: 1' http://localhost:8080/api/v1/tenant/actual
 ```
 
-Frontend todavía no existe; se añadirá en la sub-fase 1.4.
+Frontend (Node 26; el backend debe estar en `localhost:8080`):
+
+```bash
+cd frontend
+npm install                # solo la primera vez
+npm start                  # http://localhost:4200, con proxy /api y /actuator
+npm test -- --watch=false  # Vitest
+npm run build
+```
+
 **No inventes comandos ni crees proyectos que la fase no pida.**
 
 ### CI/CD (Fase 1, PEN-28)
